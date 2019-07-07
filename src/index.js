@@ -1,17 +1,20 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import App from "./App";
-import { ThemeProvider } from "styled-components";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { ThemeProvider } from 'styled-components';
+import { BrowserRouter } from 'react-router-dom';
+import App from './App';
 
-import theme from "./utils/theme";
-import GlobalStyles from "./utils/global";
+import theme from './utils/theme';
+import GlobalStyles from './utils/global';
 
 ReactDOM.render(
-  <ThemeProvider theme={theme}>
-    <>
-      <App />
-      <GlobalStyles />
-    </>
-  </ThemeProvider>,
-  document.getElementById("root")
+  <BrowserRouter>
+    <ThemeProvider theme={theme}>
+      <>
+        <App />
+        <GlobalStyles />
+      </>
+    </ThemeProvider>
+  </BrowserRouter>,
+  document.getElementById('root'),
 );

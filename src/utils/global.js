@@ -40,4 +40,8 @@ export default createGlobalStyle`
     font-family: inherit;
     text-decoration: none;
   }
+
+  a {
+    text-decoration: none;
+  }
 `;

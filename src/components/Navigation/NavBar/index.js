@@ -1,19 +1,23 @@
-import React, { Component } from "react";
+import React from "react";
 
 import Logo from "../../Logo";
-import NavItems from "../NavItems";
 
-import { Container } from "./styles";
+import { Container, NavList, NavItem, ItemLink } from "./styles";
 
-class NavBar extends Component {
-  render() {
-    return (
-      <Container>
-        <Logo />
-        <NavItems />
-      </Container>
-    );
-  }
-}
+const NavBar = () => (
+  <Container>
+    <Logo />
+    <NavList>
+      <NavItem>
+        <ItemLink exact to="/">
+          Home
+        </ItemLink>
+      </NavItem>
+      <NavItem>
+        <ItemLink to="/todos">Todos</ItemLink>
+      </NavItem>
+    </NavList>
+  </Container>
+);
 
 export default NavBar;
