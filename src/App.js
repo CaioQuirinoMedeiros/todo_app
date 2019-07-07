@@ -1,5 +1,7 @@
 import React from "react";
 
-const App = () => <div>Olá</div>;
+import Layout from "./layout";
+
+const App = () => <Layout>Caio</Layout>;
 
 export default App;

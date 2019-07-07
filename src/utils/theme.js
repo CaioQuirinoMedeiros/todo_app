@@ -5,7 +5,7 @@ const theme = {
     mainLight: "#007ea7",
     mainLighter: "#00a8e8",
     textColor: "#333",
-    whiteColor: "#fff",
+    white: "#fff",
     shadow: "rgba(0,0,0,0.2)"
   },
 
