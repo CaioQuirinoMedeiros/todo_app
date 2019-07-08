@@ -1,6 +1,10 @@
 import React, { Component } from "react";
 import { Formik, ErrorMessage } from "formik";
 import * as Yup from "yup";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+
+import AuthActions from "../../../store/ducks/auth";
 
 import {
   Container,
@@ -24,7 +28,9 @@ const signUpSchema = Yup.object().shape({
   email: Yup.string()
     .email("Invalid email")
     .required("The email is required"),
-  password: Yup.string().required("The password is required"),
+  password: Yup.string()
+    .required("The password is required")
+    .min(8, "Your password must be at least 8 characters"),
   confirmPassword: Yup.string()
     .oneOf([Yup.ref("password"), null], "Password does'nt match")
     .required("You need to confirm your password")
@@ -32,6 +38,8 @@ const signUpSchema = Yup.object().shape({
 
 class SignUp extends Component {
   render() {
+    const { signUpRequest, loading, error } = this.props;
+
     return (
       <Container>
         <Formik
@@ -44,10 +52,8 @@ class SignUp extends Component {
           }}
           validationSchema={signUpSchema}
           onSubmit={(values, { setSubmitting }) => {
-            console.log(values);
-            console.log(setSubmitting);
+            signUpRequest(...Object.values(values));
             setSubmitting(false);
-            return;
           }}
         >
           {({ isSubmitting, isValid }) => (
@@ -83,9 +89,10 @@ class SignUp extends Component {
               />
               <ErrorMessage name="confirmPassword" component={Error} />
 
-              <Button disabled={!isValid} type="submit">
-                {isSubmitting ? "Loading" : "Send"}
+              <Button disabled={!isValid || loading} type="submit">
+                {loading ? "Loading..." : "Submit"}
               </Button>
+              {error && <span>{error}</span>}
             </Form>
           )}
         </Formik>
@@ -94,4 +101,15 @@ class SignUp extends Component {
   }
 }
 
-export default SignUp;
+const mapStateToProps = ({ auth }) => ({
+  loading: auth.loading,
+  error: auth.error
+});
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(AuthActions, dispatch);
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(SignUp);

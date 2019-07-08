@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Form as FormikForm, Field, ErrorMessage as FormikError } from "formik";
+import { Form as FormikForm, Field } from "formik";
 
 export const Container = styled.div`
   width: 100%;
@@ -25,6 +25,13 @@ export const Form = styled(FormikForm)`
     width: 100%;
     margin: 0 1rem;
     padding: 3rem;
+  }
+
+  span {
+    text-align: center;
+    color: #ff6666;
+    margin-top: 0.5rem;
+    font-size: 1.2rem;
   }
 `;
 
@@ -73,7 +80,7 @@ export const Input = styled(Field)`
 `;
 
 export const Error = styled.span`
-  color: #d92929;
+  color: #ff6666;
   margin-top: 0.5rem;
   font-size: 1.2rem;
   padding-left: 1rem;

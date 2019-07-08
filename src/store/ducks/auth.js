@@ -6,10 +6,16 @@ import Immutable from "seamless-immutable";
  */
 const { Types, Creators } = createActions({
   signInRequest: ["email", "password"],
-  signInSuccess: ["token"],
-  signInFailure: [],
-  signOut: null,
-  signUpRequest: ["name", "email", "password"]
+  signInSuccess: null,
+  signUpRequest: [
+    "firstName",
+    "lastName",
+    "email",
+    "password",
+    "passwordConfirmation"
+  ],
+  signFailure: ["message"],
+  signOut: null
 });
 
 export const AuthTypes = Types;
@@ -19,18 +25,18 @@ export default Creators;
  * Initial state
  */
 export const INITIAL_STATE = Immutable({
-  signedIn: false,
-  token: null,
+  error: "",
   loading: false
 });
 
 /**
  * Reducers
  */
-const success = (state, { token }) =>
-  state.merge({ signedIn: true, token, loading: false });
+const success = (state, { id }) =>
+  state.merge({ signedIn: true, id, loading: false });
 
-const failure = state => state.merge({ loading: false });
+const failure = (state, { message }) =>
+  state.merge({ loading: false, error: message });
 
 const logout = state => state.merge({ signedIn: false, token: null });
 
@@ -39,7 +45,8 @@ const logout = state => state.merge({ signedIn: false, token: null });
  */
 export const reducer = createReducer(INITIAL_STATE, {
   [Types.SIGN_IN_REQUEST]: state => state.merge({ loading: true }),
+  [Types.SIGN_UP_REQUEST]: state => state.merge({ loading: true }),
   [Types.SIGN_IN_SUCCESS]: success,
-  [Types.SIGN_IN_FAILURE]: failure,
+  [Types.SIGN_FAILURE]: failure,
   [Types.SIGN_OUT]: logout
 });
