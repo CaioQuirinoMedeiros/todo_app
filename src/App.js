@@ -7,14 +7,25 @@ import Home from "./containers/Home";
 import Todos from "./containers/Todos";
 import Login from "./containers/Auth/Login";
 import SignUp from "./containers/Auth/SignUp";
+import Logout from "./containers/Auth/Logout";
+import VerifyEmail from "./containers/Auth/VerifyEmail";
 
-const App = ({ loggedIn }) => {
+const App = ({ loggedIn, emailVerified }) => {
   const routes = loggedIn ? (
-    <Switch>
-      <Route exact path="/" component={Home} />
-      <Route exact path="/todos" component={Todos} />
-      <Redirect to="/" />
-    </Switch>
+    emailVerified ? (
+      <Switch>
+        <Route exact path="/" component={Home} />
+        <Route exact path="/todos" component={Todos} />
+        <Route exact path="/logout" component={Logout} />
+        <Redirect to="/" />
+      </Switch>
+    ) : (
+      <Switch>
+        <Route exact path="/verify-email" component={VerifyEmail} />
+        <Route exact path="/logout" component={Logout} />
+        <Redirect to="/verify-email" />
+      </Switch>
+    )
   ) : (
     <Switch>
       <Route exact path="/" component={Home} />
@@ -23,11 +34,13 @@ const App = ({ loggedIn }) => {
       <Redirect to="/login" />
     </Switch>
   );
+
   return <Layout>{routes}</Layout>;
 };
 
 const mapStateToProps = ({ firebase }) => ({
-  loggedIn: !!firebase.auth.uid
+  loggedIn: !!firebase.auth.uid,
+  emailVerified: !!firebase.auth.emailVerified
 });
 
 export default connect(

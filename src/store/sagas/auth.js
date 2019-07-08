@@ -12,7 +12,10 @@ export function* signUp(
     const response = yield firebase
       .auth()
       .createUserWithEmailAndPassword(email, password);
-    console.log(response);
+
+    const user = firebase.auth().currentUser;
+
+    yield user.sendEmailVerification();
 
     yield firestore
       .collection("users")
@@ -22,10 +25,7 @@ export function* signUp(
         lastName
       });
 
-    console.log("Aqui 1");
-
     yield put(AuthActions.signInSuccess());
-    console.log("Aqui 2");
   } catch (err) {
     console.log(err);
     yield put(
@@ -34,9 +34,8 @@ export function* signUp(
   }
 }
 
-export function* signIn({ getFirebase, getFirestore }, { email, password }) {
+export function* signIn({ getFirebase }, { email, password }) {
   const firebase = getFirebase();
-  const firestore = getFirestore();
 
   try {
     console.log(email, password);
@@ -52,6 +51,32 @@ export function* signIn({ getFirebase, getFirestore }, { email, password }) {
       AuthActions.signFailure(
         err.message || "Login failed, check your credentials"
       )
+    );
+  }
+}
+
+export function* signOut({ getFirebase }) {
+  const firebase = getFirebase();
+  try {
+    yield firebase.auth().signOut();
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+export function* verifyEmail({ getFirebase }) {
+  const firebase = getFirebase();
+
+  try {
+    const user = firebase.auth().currentUser;
+
+    yield user.sendEmailVerification();
+
+    yield put(AuthActions.verifySuccess());
+  } catch (err) {
+    console.log(err);
+    yield put(
+      AuthActions.verifyFailure(err.message || "Couldn't send the email")
     );
   }
 }
