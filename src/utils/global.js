@@ -33,12 +33,21 @@ export default createGlobalStyle`
     font-family: 'Roboto', Arial, sans-serif;
     font-weight: 400;
     line-height: 1.6;
+    background: #fbfbfb;
   }
 
   button {
     outline: none;
+    border: none;
     font-family: inherit;
     text-decoration: none;
+    cursor: pointer;
+  }
+
+  input {
+    outline: none;
+    font-family: inherit;
+    border: none;
   }
 
   a {

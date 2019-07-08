@@ -16,6 +16,12 @@ const NavBar = () => (
       <NavItem>
         <ItemLink to="/todos">Todos</ItemLink>
       </NavItem>
+      <NavItem>
+        <ItemLink to="/login">Login</ItemLink>
+      </NavItem>
+      <NavItem>
+        <ItemLink to="/signup">SignUp</ItemLink>
+      </NavItem>
     </NavList>
   </Container>
 );

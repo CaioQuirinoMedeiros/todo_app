@@ -7,8 +7,8 @@ export const Container = styled.div`
   left: 0;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   width: 100%;
-  height: 6rem;
   padding: 0 2rem;
 
   background-color: var(--color-main);
@@ -30,9 +30,8 @@ export const NavItem = styled.li`
 export const ItemLink = styled(NavLink)`
   display: flex;
   align-items: center;
-  padding: 1rem;
-  margin: 0 1rem;
-  border-bottom: 2px solid transparent;
+  padding: 1.4rem;
+  border-bottom: 3px solid transparent;
 
   font-size: 1.2rem;
   text-transform: uppercase;
@@ -41,10 +40,10 @@ export const ItemLink = styled(NavLink)`
   transition: all 0.2s;
 
   &:hover {
-    border-bottom: 2px solid var(--color-white);
+    border-bottom: 3px solid var(--color-white);
   }
 
   &.active {
-    border-bottom: 2px solid var(--color-white);
+    border-bottom: 3px solid var(--color-white);
   }
 `;
