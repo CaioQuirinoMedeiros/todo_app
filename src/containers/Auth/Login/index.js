@@ -24,6 +24,11 @@ const loginSchema = Yup.object().shape({
 });
 
 class Login extends Component {
+  componentDidMount() {
+    const { cleanUp } = this.props;
+    cleanUp();
+  }
+
   render() {
     const { signInRequest, loading, error } = this.props;
 

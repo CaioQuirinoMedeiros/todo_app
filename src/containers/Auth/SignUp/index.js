@@ -37,6 +37,11 @@ const signUpSchema = Yup.object().shape({
 });
 
 class SignUp extends Component {
+  componentDidMount() {
+    const { cleanUp } = this.props;
+    cleanUp();
+  }
+
   render() {
     const { signUpRequest, loading, error } = this.props;
 

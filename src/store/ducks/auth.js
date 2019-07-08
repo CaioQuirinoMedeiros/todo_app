@@ -15,6 +15,7 @@ const { Types, Creators } = createActions({
     "passwordConfirmation"
   ],
   signFailure: ["message"],
+  cleanUp: null,
   signOut: null
 });
 
@@ -32,13 +33,8 @@ export const INITIAL_STATE = Immutable({
 /**
  * Reducers
  */
-const success = (state, { id }) =>
-  state.merge({ signedIn: true, id, loading: false });
-
 const failure = (state, { message }) =>
   state.merge({ loading: false, error: message });
-
-const logout = state => state.merge({ signedIn: false, token: null });
 
 /**
  * Reducers to types
@@ -46,7 +42,7 @@ const logout = state => state.merge({ signedIn: false, token: null });
 export const reducer = createReducer(INITIAL_STATE, {
   [Types.SIGN_IN_REQUEST]: state => state.merge({ loading: true }),
   [Types.SIGN_UP_REQUEST]: state => state.merge({ loading: true }),
-  [Types.SIGN_IN_SUCCESS]: success,
-  [Types.SIGN_FAILURE]: failure,
-  [Types.SIGN_OUT]: logout
+  [Types.SIGN_IN_SUCCESS]: state => state.merge({ loading: false, error: "" }),
+  [Types.CLEAN_UP]: state => state.merge({ error: "" }),
+  [Types.SIGN_FAILURE]: failure
 });
