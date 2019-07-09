@@ -5,11 +5,11 @@ export const Container = styled.div`
   position: fixed;
   top: 0;
   left: 0;
-  display: none;
   width: 100%;
-  height: 6rem;
+  height: 5.5rem;
+  display: none;
   padding: 0 2rem;
-  z-index: 10;
+  z-index: 99;
 
   background-color: var(--color-main);
 
@@ -35,7 +35,7 @@ export const NavBar = styled.div`
 
 export const NavList = styled.ul`
   position: absolute;
-  top: 6rem;
+  top: 5.5rem;
   left: 0;
   width: 100%;
   display: flex;

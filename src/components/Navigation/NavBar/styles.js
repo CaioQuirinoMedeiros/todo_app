@@ -5,13 +5,15 @@ export const Container = styled.div`
   position: fixed;
   top: 0;
   left: 0;
+  width: 100%;
+  height: 5.5rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 100%;
   padding: 0 2rem;
 
   background-color: var(--color-main);
+  z-index: 99;
 
   @media ${props => props.theme.mediaQueries.small} {
     display: none;
@@ -19,11 +21,13 @@ export const Container = styled.div`
 `;
 
 export const NavList = styled.ul`
+  height: 100%;
   display: flex;
   align-items: center;
 `;
 
 export const NavItem = styled.li`
+  height: 100%;
   display: flex;
 `;
 
