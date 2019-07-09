@@ -6,15 +6,17 @@ import { bindActionCreators } from "redux";
 
 import AuthActions from "../../../store/ducks/auth";
 
+import Button from "../../../utils/button";
+
 import {
   Container,
   Form,
   Title,
   SubTitle,
   Input,
-  Button,
   Error,
-  ErrorWrapper
+  ErrorWrapper,
+  Link
 } from "../styles";
 
 const RecoveryPasswordSchema = Yup.object().shape({
@@ -53,6 +55,8 @@ const RecoveryPassword = ({ message, loading, recoveryRequest, cleanUp }) => {
             <Button disabled={!isValid || loading} type="submit">
               {loading ? "Sending recover e-mail..." : "Send"}
             </Button>
+
+            <Link to="/login">Login</Link>
 
             <ErrorWrapper>
               {message.content && (

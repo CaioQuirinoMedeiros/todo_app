@@ -6,6 +6,8 @@ import { bindActionCreators } from "redux";
 
 import AuthActions from "../../../store/ducks/auth";
 
+import Button from "../../../utils/button";
+
 import {
   Container,
   Form,
@@ -13,8 +15,7 @@ import {
   ErrorWrapper,
   Error,
   Title,
-  SubTitle,
-  Button
+  SubTitle
 } from "../styles";
 
 const signUpSchema = Yup.object().shape({

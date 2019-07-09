@@ -4,8 +4,6 @@ import { bindActionCreators } from "redux";
 
 import AuthActions from "../../../store/ducks/auth";
 
-// import { Container } from './styles';
-
 const Logout = ({ signOut }) => {
   useEffect(() => {
     signOut();

@@ -6,6 +6,8 @@ import { bindActionCreators } from "redux";
 
 import AuthActions from "../../../store/ducks/auth";
 
+import Button from "../../../utils/button";
+
 import {
   Container,
   Form,
@@ -14,7 +16,6 @@ import {
   Error,
   Title,
   SubTitle,
-  Button,
   Link
 } from "../styles";
 
