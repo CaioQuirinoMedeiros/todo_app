@@ -9,6 +9,7 @@ export const Container = styled.div`
   width: 100%;
   height: 6rem;
   padding: 0 2rem;
+  z-index: 10;
 
   background-color: var(--color-main);
 
