@@ -4,7 +4,16 @@ import { bindActionCreators } from "redux";
 
 import AuthActions from "../../../store/ducks/auth";
 
-import { Container, Form, Title, SubTitle, Button, Error } from "../styles";
+import Button from "../../../utils/button";
+
+import {
+  Container,
+  Form,
+  Title,
+  SubTitle,
+  ErrorWrapper,
+  Error
+} from "../styles";
 
 const VerifyEmail = ({ loading, message, verifyRequest, cleanUp }) => {
   useEffect(() => {
@@ -23,11 +32,13 @@ const VerifyEmail = ({ loading, message, verifyRequest, cleanUp }) => {
         <Button type="button" onClick={() => verifyRequest()}>
           {loading ? "Sending email..." : "Re-send verification email"}
         </Button>
-        {message.content && (
-          <Error center type={message.type}>
-            {message.content}
-          </Error>
-        )}
+        <ErrorWrapper>
+          {message.content && (
+            <Error center type={message.type}>
+              {message.content}
+            </Error>
+          )}
+        </ErrorWrapper>
       </Form>
     </Container>
   );
