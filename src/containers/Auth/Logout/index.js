@@ -1,16 +1,21 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
+import { Redirect } from "react-router-dom";
 
 import AuthActions from "../../../store/ducks/auth";
 
-const Logout = ({ signOut }) => {
-  useEffect(() => {
-    signOut();
-  }, [signOut]);
+import Confirmation from "../../../components/Confirmation";
 
-  return null;
-};
+const Logout = ({ signOut, history }) => (
+  <Confirmation
+    close={() => {
+      return history.goBack();
+    }}
+    confirm={signOut}
+    message="Logout from your account"
+  />
+);
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators(AuthActions, dispatch);
