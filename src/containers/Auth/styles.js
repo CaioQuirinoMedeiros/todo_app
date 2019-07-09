@@ -14,7 +14,7 @@ export const Form = styled(FormikForm)`
   width: 58rem;
   margin: 0 1rem;
   position: relative;
-  padding: 2.5rem 4rem 2rem;
+  padding: 2.5rem 4rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -49,14 +49,14 @@ export const SubTitle = styled.h2`
 
 export const Input = styled(Field)`
   padding: 0 2rem;
-  height: 4rem;
+  height: 3.8rem;
   margin-top: 0.6rem;
   border-radius: 2rem;
 
   background: var(--color-mainDark);
   color: var(--color-white);
   font-weight: 400;
-  font-size: 1.5rem;
+  font-size: 1.3rem;
 
   &:-webkit-autofill,
   &:-webkit-autofill:hover,
@@ -75,17 +75,13 @@ export const Input = styled(Field)`
 `;
 
 export const ErrorWrapper = styled.div`
-  position: relative;
-  min-height: 19px;
-  margin-top: 0.2rem;
+  min-height: 16px;
+  margin-top: 0.5rem;
+  display: flex;
 `;
 
 export const Error = styled.span`
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
+  width: 100%;
   text-align: ${props => (props.center ? "center" : "left")};
   padding-left: ${props => (props.center ? "0" : "1rem")};
   color: ${props => (props.type === "success" ? "#5fd965" : "#ff6666")};
