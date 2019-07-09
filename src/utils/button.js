@@ -2,13 +2,13 @@ import styled from "styled-components";
 
 export default styled.button`
   padding: 0 2rem;
-  height: 4rem;
+  height: 3.5rem;
   margin-top: 1rem;
   border-radius: 2rem;
 
   background: ${props =>
-    props.color ? props.color : "var(--color-mainLight)"};
-  opacity: ${props => (props.color ? 0.8 : 1)};
+    props.red ? "var(--color-red)" : "var(--color-mainLighter)"};
+  opacity: 0.85;
   color: var(--color-white);
   font-size: 1.4rem;
   letter-spacing: 1.1px;
@@ -16,8 +16,6 @@ export default styled.button`
   transition: all 0.2s;
 
   &:hover {
-    background: ${props =>
-      props.color ? props.color : "var(--color-mainLighter)"};
     opacity: 1;
     transform: translateY(-2px);
   }

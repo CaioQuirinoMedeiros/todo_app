@@ -11,7 +11,7 @@ const Confirmation = ({ close, confirm, message }) => (
       <Message>{message}</Message>
       <Button
         type="button"
-        color="#de2121"
+        red
         onClick={() => {
           confirm();
           close();

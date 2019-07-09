@@ -120,7 +120,7 @@ const Profile = ({
             <Button
               type="button"
               disabled={deleteLoading}
-              color="#de2121"
+              red
               onClick={() => profileEditOpenConfirmation()}
             >
               {deleteLoading ? "Deleting account..." : "Delete my account"}
