@@ -38,11 +38,7 @@ export function* signIn({ getFirebase }, { email, password }) {
   const firebase = getFirebase();
 
   try {
-    console.log(email, password);
-    const response = yield firebase
-      .auth()
-      .signInWithEmailAndPassword(email, password);
-    console.log(response);
+    yield firebase.auth().signInWithEmailAndPassword(email, password);
 
     yield put(AuthActions.signInSuccess());
   } catch (err) {
@@ -94,6 +90,47 @@ export function* recoverPassword({ getFirebase }, { email }) {
       AuthActions.recoveryFailure(
         err.message || "Couldn't send recovery password email"
       )
+    );
+  }
+}
+
+export function* editProfile(
+  { getFirebase, getFirestore },
+  { firstName, lastName, email, password }
+) {
+  const firebase = getFirebase();
+  const firestore = getFirestore();
+
+  try {
+    const user = yield firebase.auth().currentUser;
+
+    console.log("user novo: ", user);
+
+    if (email !== user.email) {
+      yield user.updateEmail(email);
+      console.log("TROCANDO EMAIL");
+    }
+
+    yield firestore
+      .collection("users")
+      .doc(user.uid)
+      .set({
+        firstName,
+        lastName
+      });
+
+    if (password.length) {
+      yield user.updatePassword(password);
+      console.log("TROCANDO password");
+    }
+
+    console.log("user novo: ", user);
+
+    yield put(AuthActions.profileEditSuccess());
+  } catch (err) {
+    console.log(err);
+    yield put(
+      AuthActions.profileEditFailure(err.message || "Something went wrong...")
     );
   }
 }

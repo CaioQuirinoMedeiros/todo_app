@@ -1,7 +1,14 @@
 import { all, takeLatest } from "redux-saga/effects";
 
 import { AuthTypes } from "../ducks/auth";
-import { signUp, signIn, signOut, verifyEmail, recoverPassword } from "./auth";
+import {
+  signUp,
+  signIn,
+  signOut,
+  verifyEmail,
+  recoverPassword,
+  editProfile
+} from "./auth";
 
 export default function* rootSaga(context) {
   yield all([takeLatest(AuthTypes.SIGN_UP_REQUEST, signUp, context)]);
@@ -9,4 +16,5 @@ export default function* rootSaga(context) {
   yield all([takeLatest(AuthTypes.SIGN_OUT, signOut, context)]);
   yield all([takeLatest(AuthTypes.VERIFY_REQUEST, verifyEmail, context)]);
   yield all([takeLatest(AuthTypes.RECOVERY_REQUEST, recoverPassword, context)]);
+  yield all([takeLatest(AuthTypes.PROFILE_EDIT_REQUEST, editProfile, context)]);
 }

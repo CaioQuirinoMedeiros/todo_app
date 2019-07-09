@@ -22,7 +22,18 @@ const { Types, Creators } = createActions({
   verifyFailure: ["message"],
   recoveryRequest: ["email"],
   recoverySuccess: null,
-  recoveryFailure: ["message"]
+  recoveryFailure: ["message"],
+  profileEditRequest: [
+    "firstName",
+    "lastName",
+    "email",
+    "password",
+    "passwordConfirmation"
+  ],
+  profileEditSuccess: null,
+  profileEditFailure: ["message"],
+  profileEditOpenConfirmation: null,
+  profileEditCloseConfirmation: null
 });
 
 export const AuthTypes = Types;
@@ -47,6 +58,14 @@ export const INITIAL_STATE = Immutable({
       content: ""
     },
     loading: false
+  },
+  profileEdit: {
+    message: {
+      type: null,
+      content: ""
+    },
+    loading: false,
+    confirmationOpen: false
   }
 });
 
@@ -58,11 +77,16 @@ export const INITIAL_STATE = Immutable({
  * Reducers to types
  */
 export const reducer = createReducer(INITIAL_STATE, {
-  [Types.SIGN_IN_REQUEST]: state => state.merge({ loading: true }),
-  [Types.SIGN_UP_REQUEST]: state => state.merge({ loading: true }),
-  [Types.SIGN_IN_SUCCESS]: state => state.merge({ loading: false, error: "" }),
+  [Types.SIGN_IN_REQUEST]: state => state.merge({ error: "", loading: true }),
+  [Types.SIGN_UP_REQUEST]: state => state.merge({ error: "", loading: true }),
+  [Types.SIGN_IN_SUCCESS]: state => state.merge({ error: "", loading: false }),
   [Types.CLEAN_UP]: state =>
-    state.merge({ error: "", verifyEmail: { type: null, message: "" } }),
+    state.merge({
+      error: "",
+      verifyEmail: { type: null, message: "" },
+      recoveryPassword: { type: null, message: "" },
+      profileEdit: { type: null, message: "" }
+    }),
   [Types.SIGN_FAILURE]: (state, { message }) =>
     state.merge({ loading: false, error: message }),
   [Types.VERIFY_REQUEST]: state =>
@@ -100,5 +124,34 @@ export const reducer = createReducer(INITIAL_STATE, {
         loading: false,
         message: { type: "error", content: message }
       }
+    }),
+  [Types.PROFILE_EDIT_REQUEST]: state =>
+    state.merge({
+      profileEdit: { message: { type: null, content: "" }, loading: true }
+    }),
+  [Types.PROFILE_EDIT_SUCCESS]: state =>
+    state.merge({
+      profileEdit: {
+        loading: false,
+        message: {
+          type: "success",
+          content: "Your profile was successfully updated!"
+        }
+      }
+    }),
+  [Types.PROFILE_EDIT_FAILURE]: (state, { message }) =>
+    state.merge({
+      profileEdit: {
+        loading: false,
+        message: { type: "error", content: message }
+      }
+    }),
+  [Types.PROFILE_EDIT_OPEN_CONFIRMATION]: state =>
+    state.merge({
+      profileEdit: { ...state.profileEdit, confirmationOpen: true }
+    }),
+  [Types.PROFILE_EDIT_CLOSE_CONFIRMATION]: state =>
+    state.merge({
+      profileEdit: { ...state.profileEdit, confirmationOpen: false }
     })
 });
