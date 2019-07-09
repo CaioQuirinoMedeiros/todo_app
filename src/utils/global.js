@@ -18,14 +18,15 @@ export default createGlobalStyle`
     --color-mainDark: ${props => props.theme.colors.mainDark};
     --color-mainLight: ${props => props.theme.colors.mainLight};
     --color-mainLighter: ${props => props.theme.colors.mainLighter};
+    --color-red: ${props => props.theme.colors.red};
     --color-text: ${props => props.theme.colors.text};
     --color-white: ${props => props.theme.colors.white};
 
     @media ${props => props.theme.mediaQueries.small} {
-      font-size: 60%;
+      font-size: 55%;
     }
     @media ${props => props.theme.mediaQueries.smallest} {
-      font-size: 55%;
+      font-size: 50%;
     }
   }
 
