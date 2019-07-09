@@ -45,7 +45,7 @@ class SideDrawer extends Component {
               </NavItem>
               <NavItem>
                 <ItemLink to="/profile" onClick={this.toggleList}>
-                  Profile
+                  Account
                 </ItemLink>
               </NavItem>
               <NavItem>

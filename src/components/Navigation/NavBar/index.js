@@ -20,7 +20,7 @@ const NavBar = ({ loggedIn }) => (
             <ItemLink to="/todos">Todos</ItemLink>
           </NavItem>
           <NavItem>
-            <ItemLink to="/profile">Profile</ItemLink>
+            <ItemLink to="/profile">Account</ItemLink>
           </NavItem>
           <NavItem>
             <ItemLink to="/logout">Logout</ItemLink>
