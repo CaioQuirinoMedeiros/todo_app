@@ -80,3 +80,20 @@ export function* verifyEmail({ getFirebase }) {
     );
   }
 }
+
+export function* recoverPassword({ getFirebase }, { email }) {
+  const firebase = getFirebase();
+
+  try {
+    yield firebase.auth().sendPasswordResetEmail(email);
+
+    yield put(AuthActions.recoverySuccess());
+  } catch (err) {
+    console.log(err);
+    yield put(
+      AuthActions.recoveryFailure(
+        err.message || "Couldn't send recovery password email"
+      )
+    );
+  }
+}
