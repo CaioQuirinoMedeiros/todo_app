@@ -31,13 +31,13 @@ class SideDrawer extends Component {
           />
         </NavBar>
         <NavList isOpen={isOpen}>
-          <NavItem>
-            <ItemLink exact to="/" onClick={this.toggleList}>
-              Home
-            </ItemLink>
-          </NavItem>
           {loggedIn ? (
             <>
+              <NavItem>
+                <ItemLink exact to="/" onClick={this.toggleList}>
+                  Home
+                </ItemLink>
+              </NavItem>
               <NavItem>
                 <ItemLink to="/todos" onClick={this.toggleList}>
                   Todos

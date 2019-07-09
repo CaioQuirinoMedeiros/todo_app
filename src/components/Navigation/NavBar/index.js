@@ -9,13 +9,13 @@ const NavBar = ({ loggedIn }) => (
   <Container>
     <Logo />
     <NavList>
-      <NavItem>
-        <ItemLink exact to="/">
-          Home
-        </ItemLink>
-      </NavItem>
       {loggedIn ? (
         <>
+          <NavItem>
+            <ItemLink exact to="/">
+              Home
+            </ItemLink>
+          </NavItem>
           <NavItem>
             <ItemLink to="/todos">Todos</ItemLink>
           </NavItem>
