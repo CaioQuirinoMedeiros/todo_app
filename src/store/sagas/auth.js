@@ -104,11 +104,8 @@ export function* editProfile(
   try {
     const user = yield firebase.auth().currentUser;
 
-    console.log("user novo: ", user);
-
     if (email !== user.email) {
       yield user.updateEmail(email);
-      console.log("TROCANDO EMAIL");
     }
 
     yield firestore
@@ -121,16 +118,34 @@ export function* editProfile(
 
     if (password.length) {
       yield user.updatePassword(password);
-      console.log("TROCANDO password");
     }
-
-    console.log("user novo: ", user);
 
     yield put(AuthActions.profileEditSuccess());
   } catch (err) {
     console.log(err);
     yield put(
       AuthActions.profileEditFailure(err.message || "Something went wrong...")
+    );
+  }
+}
+
+export function* deleteAccount({ getFirebase, getFirestore }) {
+  const firebase = getFirebase();
+  const firestore = getFirestore();
+
+  try {
+    const user = yield firebase.auth().currentUser;
+
+    yield firestore
+      .collection("users")
+      .doc(user.uid)
+      .delete();
+
+    yield user.delete();
+  } catch (err) {
+    console.log(err);
+    yield put(
+      AuthActions.deleteAccountFailure(err.message || "Couldn't delete account")
     );
   }
 }
