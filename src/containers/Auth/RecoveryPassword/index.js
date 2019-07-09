@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import * as Yup from "yup";
 import { Formik, ErrorMessage } from "formik";
 import { connect } from "react-redux";
@@ -23,7 +23,13 @@ const RecoveryPasswordSchema = Yup.object().shape({
     .required("Type in your e-mail")
 });
 
-const RecoveryPassword = ({ message, loading, recoveryRequest }) => {
+const RecoveryPassword = ({ message, loading, recoveryRequest, cleanUp }) => {
+  useEffect(() => {
+    return () => {
+      cleanUp();
+    };
+  }, [cleanUp]);
+
   return (
     <Container>
       <Formik
