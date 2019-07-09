@@ -4,10 +4,13 @@ import { Link as RouteLink } from "react-router-dom";
 
 export const Container = styled.div`
   width: 100%;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 2rem;
+  padding: 1rem;
+
+  background: orange;
 `;
 
 export const Form = styled(FormikForm)`
@@ -75,7 +78,7 @@ export const Input = styled(Field)`
 `;
 
 export const ErrorWrapper = styled.div`
-  min-height: 16px;
+  min-height: 19px;
   margin-top: 0.5rem;
   display: flex;
 `;
@@ -99,28 +102,5 @@ export const Link = styled(RouteLink)`
 
   &:hover {
     opacity: 0.9;
-  }
-`;
-
-export const Button = styled.button`
-  padding: 0 2rem;
-  height: 4rem;
-  margin-top: 1rem;
-  border-radius: 2rem;
-
-  background: var(--color-mainLighter);
-  color: var(--color-white);
-  font-size: 1.4rem;
-  letter-spacing: 1.1px;
-  box-shadow: 0rem 0.5rem 3.5rem var(--shadow);
-  transition: all 0.2s;
-
-  &:hover {
-    background: var(--color-mainLight);
-  }
-
-  &:disabled {
-    background: #333;
-    cursor: not-allowed;
   }
 `;
