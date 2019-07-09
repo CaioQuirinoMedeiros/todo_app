@@ -10,10 +10,12 @@ import {
   Container,
   Form,
   Input,
+  ErrorWrapper,
   Error,
   Title,
   SubTitle,
-  Button
+  Button,
+  Link
 } from "../styles";
 
 const loginSchema = Yup.object().shape({
@@ -50,19 +52,28 @@ class Login extends Component {
               </SubTitle>
 
               <Input type="email" name="email" placeholder="Your email" />
-              <ErrorMessage name="email" component={Error} />
+              <ErrorWrapper>
+                <ErrorMessage name="email" component={Error} />
+              </ErrorWrapper>
 
               <Input
                 type="password"
                 name="password"
                 placeholder="Your password"
               />
-              <ErrorMessage name="password" component={Error} />
+              <ErrorWrapper>
+                <ErrorMessage name="password" component={Error} />
+              </ErrorWrapper>
 
               <Button disabled={!isValid || loading} type="submit">
                 {loading ? "Loading..." : "Login"}
               </Button>
-              {error && <span>{error}</span>}
+
+              <Link to="/recovery">Forgot my password</Link>
+
+              <ErrorWrapper>
+                {error && <Error center>{error}</Error>}
+              </ErrorWrapper>
             </Form>
           )}
         </Formik>

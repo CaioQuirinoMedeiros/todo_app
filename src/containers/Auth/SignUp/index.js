@@ -10,6 +10,7 @@ import {
   Container,
   Form,
   Input,
+  ErrorWrapper,
   Error,
   Title,
   SubTitle,
@@ -64,40 +65,54 @@ class SignUp extends Component {
           {({ isSubmitting, isValid }) => (
             <Form>
               <Title>Sign up for an account</Title>
+
               <SubTitle>
                 Fill in yout details to register your new account
               </SubTitle>
+
               <Input
                 type="text"
                 name="firstName"
                 placeholder="Your first name"
               />
-              <ErrorMessage name="firstName" component={Error} />
+              <ErrorWrapper>
+                <ErrorMessage name="firstName" component={Error} />
+              </ErrorWrapper>
 
               <Input type="text" name="lastName" placeholder="Your last name" />
-              <ErrorMessage name="lastName" component={Error} />
+              <ErrorWrapper>
+                <ErrorMessage name="lastName" component={Error} />
+              </ErrorWrapper>
 
               <Input type="email" name="email" placeholder="Your email" />
-              <ErrorMessage name="email" component={Error} />
+              <ErrorWrapper>
+                <ErrorMessage name="email" component={Error} />
+              </ErrorWrapper>
 
               <Input
                 type="password"
                 name="password"
                 placeholder="Your password"
               />
-              <ErrorMessage name="password" component={Error} />
+              <ErrorWrapper>
+                <ErrorMessage name="password" component={Error} />
+              </ErrorWrapper>
 
               <Input
                 type="password"
                 name="confirmPassword"
                 placeholder="Re-type your password"
               />
-              <ErrorMessage name="confirmPassword" component={Error} />
+              <ErrorWrapper>
+                <ErrorMessage name="confirmPassword" component={Error} />
+              </ErrorWrapper>
 
               <Button disabled={!isValid || loading} type="submit">
                 {loading ? "Loading..." : "Submit"}
               </Button>
-              {error && <span>{error}</span>}
+              <ErrorWrapper>
+                {error && <Error center>{error}</Error>}
+              </ErrorWrapper>
             </Form>
           )}
         </Formik>

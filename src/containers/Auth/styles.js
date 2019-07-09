@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { Form as FormikForm, Field } from "formik";
+import { Link as RouteLink } from "react-router-dom";
 
 export const Container = styled.div`
   width: 100%;
@@ -12,7 +13,8 @@ export const Container = styled.div`
 export const Form = styled(FormikForm)`
   width: 58rem;
   margin: 0 1rem;
-  padding: 4rem;
+  position: relative;
+  padding: 2.5rem 4rem 2rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -25,13 +27,6 @@ export const Form = styled(FormikForm)`
     width: 100%;
     margin: 0 1rem;
     padding: 3rem;
-  }
-
-  span {
-    text-align: center;
-    color: #ff6666;
-    margin-top: 0.5rem;
-    font-size: 1.2rem;
   }
 `;
 
@@ -55,7 +50,7 @@ export const SubTitle = styled.h2`
 export const Input = styled(Field)`
   padding: 0 2rem;
   height: 4rem;
-  margin-top: 1rem;
+  margin-top: 0.6rem;
   border-radius: 2rem;
 
   background: var(--color-mainDark);
@@ -79,17 +74,42 @@ export const Input = styled(Field)`
   }
 `;
 
+export const ErrorWrapper = styled.div`
+  position: relative;
+  min-height: 19px;
+  margin-top: 0.2rem;
+`;
+
 export const Error = styled.span`
-  color: #ff6666;
-  margin-top: 0.5rem;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  text-align: ${props => (props.center ? "center" : "left")};
+  padding-left: ${props => (props.center ? "0" : "1rem")};
+  color: ${props => (props.type === "success" ? "#5fd965" : "#ff6666")};
   font-size: 1.2rem;
-  padding-left: 1rem;
+`;
+
+export const Link = styled(RouteLink)`
+  color: var(--color-white);
+  font-size: 1.4rem;
+  font-weight: 500;
+  margin-top: 0.6rem;
+  text-align: center;
+  opacity: 0.7;
+  transition: all 0.2s;
+
+  &:hover {
+    opacity: 0.9;
+  }
 `;
 
 export const Button = styled.button`
   padding: 0 2rem;
   height: 4rem;
-  margin-top: 2rem;
+  margin-top: 1rem;
   border-radius: 2rem;
 
   background: var(--color-mainLighter);
