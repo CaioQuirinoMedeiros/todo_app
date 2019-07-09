@@ -31,7 +31,9 @@ export const ItemLink = styled(NavLink)`
   display: flex;
   align-items: center;
   padding: 1.4rem;
+  margin-left: 0.1rem;
   border-bottom: 3px solid transparent;
+  border-top: 3px solid transparent;
 
   font-size: 1.2rem;
   text-transform: uppercase;
