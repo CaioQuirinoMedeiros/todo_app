@@ -45,9 +45,11 @@ const Profile = ({
   message,
   loading,
   confirmationOpen,
+  deleteLoading,
   profileEditOpenConfirmation,
   profileEditCloseConfirmation,
   profileEditRequest,
+  deleteAccountRequest,
   cleanUp
 }) => {
   useEffect(() => {
@@ -117,10 +119,11 @@ const Profile = ({
 
             <Button
               type="button"
+              disabled={deleteLoading}
               color="#de2121"
               onClick={() => profileEditOpenConfirmation()}
             >
-              Delete my account
+              {deleteLoading ? "Deleting account..." : "Delete my account"}
             </Button>
 
             <ErrorWrapper>
@@ -136,7 +139,7 @@ const Profile = ({
       {confirmationOpen && (
         <Confirmation
           close={profileEditCloseConfirmation}
-          confirm={() => console.log("EXCLUIU")}
+          confirm={deleteAccountRequest}
           message="Do you really want to delete your account?"
         />
       )}
@@ -148,7 +151,8 @@ const mapStateToProps = ({ auth, firebase }) => ({
   firebase,
   loading: auth.profileEdit.loading,
   message: auth.profileEdit.message,
-  confirmationOpen: auth.profileEdit.confirmationOpen
+  confirmationOpen: auth.profileEdit.confirmationOpen,
+  deleteLoading: auth.profileEdit.deleteLoading
 });
 
 const mapDispatchToProps = dispatch =>

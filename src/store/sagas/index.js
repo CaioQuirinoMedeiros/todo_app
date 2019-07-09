@@ -7,7 +7,8 @@ import {
   signOut,
   verifyEmail,
   recoverPassword,
-  editProfile
+  editProfile,
+  deleteAccount
 } from "./auth";
 
 export default function* rootSaga(context) {
@@ -17,4 +18,7 @@ export default function* rootSaga(context) {
   yield all([takeLatest(AuthTypes.VERIFY_REQUEST, verifyEmail, context)]);
   yield all([takeLatest(AuthTypes.RECOVERY_REQUEST, recoverPassword, context)]);
   yield all([takeLatest(AuthTypes.PROFILE_EDIT_REQUEST, editProfile, context)]);
+  yield all([
+    takeLatest(AuthTypes.DELETE_ACCOUNT_REQUEST, deleteAccount, context)
+  ]);
 }

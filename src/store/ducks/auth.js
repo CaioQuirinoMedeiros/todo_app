@@ -33,7 +33,9 @@ const { Types, Creators } = createActions({
   profileEditSuccess: null,
   profileEditFailure: ["message"],
   profileEditOpenConfirmation: null,
-  profileEditCloseConfirmation: null
+  profileEditCloseConfirmation: null,
+  deleteAccountRequest: null,
+  deleteAccountFailure: ["message"]
 });
 
 export const AuthTypes = Types;
@@ -65,7 +67,8 @@ export const INITIAL_STATE = Immutable({
       content: ""
     },
     loading: false,
-    confirmationOpen: false
+    confirmationOpen: false,
+    deleteLoading: false
   }
 });
 
@@ -153,5 +156,21 @@ export const reducer = createReducer(INITIAL_STATE, {
   [Types.PROFILE_EDIT_CLOSE_CONFIRMATION]: state =>
     state.merge({
       profileEdit: { ...state.profileEdit, confirmationOpen: false }
+    }),
+  [Types.DELETE_ACCOUNT_REQUEST]: state =>
+    state.merge({
+      profileEdit: {
+        ...state.profileEdit,
+        deleteLoading: true,
+        message: { type: null, content: "" }
+      }
+    }),
+  [Types.DELETE_ACCOUNT_FAILURE]: (state, { message }) =>
+    state.merge({
+      profileEdit: {
+        ...state.profileEdit,
+        deleteLoading: false,
+        message: { type: "error", content: message }
+      }
     })
 });
