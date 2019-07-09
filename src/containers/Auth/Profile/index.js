@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { Formik, ErrorMessage } from "formik";
 import { bindActionCreators } from "redux";
 import * as Yup from "yup";
 
 import AuthActions from "../../../store/ducks/auth";
+
+import Button from "../../../utils/button";
 
 import {
   Container,
@@ -13,8 +15,7 @@ import {
   ErrorWrapper,
   Error,
   Title,
-  SubTitle,
-  Button
+  SubTitle
 } from "../styles";
 import Confirmation from "../../../components/Confirmation";
 
@@ -46,8 +47,15 @@ const Profile = ({
   confirmationOpen,
   profileEditOpenConfirmation,
   profileEditCloseConfirmation,
-  profileEditRequest
+  profileEditRequest,
+  cleanUp
 }) => {
+  useEffect(() => {
+    return () => {
+      cleanUp();
+    };
+  }, [cleanUp]);
+
   return firebase.profile.isLoaded ? (
     <Container>
       <Formik
@@ -107,8 +115,12 @@ const Profile = ({
               {loading ? "Updating profile..." : "Submit"}
             </Button>
 
-            <Button type="button" onClick={() => profileEditOpenConfirmation()}>
-              Delete account
+            <Button
+              type="button"
+              color="#de2121"
+              onClick={() => profileEditOpenConfirmation()}
+            >
+              Delete my account
             </Button>
 
             <ErrorWrapper>
@@ -121,9 +133,12 @@ const Profile = ({
           </Form>
         )}
       </Formik>
-
       {confirmationOpen && (
-        <Confirmation close={profileEditCloseConfirmation} />
+        <Confirmation
+          close={profileEditCloseConfirmation}
+          confirm={() => console.log("EXCLUIU")}
+          message="Do you really want to delete your account?"
+        />
       )}
     </Container>
   ) : null;
