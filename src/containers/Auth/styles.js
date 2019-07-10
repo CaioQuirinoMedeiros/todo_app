@@ -9,8 +9,6 @@ export const Container = styled.div`
   align-items: center;
   justify-content: center;
   padding: 1rem;
-
-  background: orange;
 `;
 
 export const Form = styled(FormikForm)`
@@ -42,9 +40,8 @@ export const Title = styled.h1`
   text-transform: uppercase;
 `;
 
-export const SubTitle = styled.h2`
+export const SubTitle = styled.p`
   margin-bottom: 1rem;
-  font-weight: 300;
   color: var(--color-white);
   font-size: 1.4rem;
   text-align: center;
@@ -79,7 +76,7 @@ export const Input = styled(Field)`
 
 export const ErrorWrapper = styled.div`
   min-height: 19px;
-  margin-top: 0.5rem;
+  margin-top: 0.4rem;
   display: flex;
 `;
 
