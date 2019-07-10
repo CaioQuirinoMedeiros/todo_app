@@ -1,4 +1,4 @@
-import { call, put, select } from "redux-saga/effects";
+import { put } from "redux-saga/effects";
 import AuthActions from "../ducks/auth";
 
 export function* signUp(
