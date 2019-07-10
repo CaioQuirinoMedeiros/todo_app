@@ -34,11 +34,6 @@ class SideDrawer extends Component {
           {loggedIn ? (
             <>
               <NavItem>
-                <ItemLink exact to="/" onClick={this.toggleList}>
-                  Home
-                </ItemLink>
-              </NavItem>
-              <NavItem>
                 <ItemLink to="/todos" onClick={this.toggleList}>
                   Todos
                 </ItemLink>

@@ -12,11 +12,6 @@ const NavBar = ({ loggedIn }) => (
       {loggedIn ? (
         <>
           <NavItem>
-            <ItemLink exact to="/">
-              Home
-            </ItemLink>
-          </NavItem>
-          <NavItem>
             <ItemLink to="/todos">Todos</ItemLink>
           </NavItem>
           <NavItem>
