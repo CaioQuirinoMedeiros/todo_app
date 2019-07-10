@@ -11,14 +11,19 @@ import {
   deleteAccount
 } from "./auth";
 
+import { TodosTypes } from "../ducks/todos";
+import { addTodo } from "./todos";
+
 export default function* rootSaga(context) {
-  yield all([takeLatest(AuthTypes.SIGN_UP_REQUEST, signUp, context)]);
-  yield all([takeLatest(AuthTypes.SIGN_IN_REQUEST, signIn, context)]);
-  yield all([takeLatest(AuthTypes.SIGN_OUT, signOut, context)]);
-  yield all([takeLatest(AuthTypes.VERIFY_REQUEST, verifyEmail, context)]);
-  yield all([takeLatest(AuthTypes.RECOVERY_REQUEST, recoverPassword, context)]);
-  yield all([takeLatest(AuthTypes.PROFILE_EDIT_REQUEST, editProfile, context)]);
   yield all([
-    takeLatest(AuthTypes.DELETE_ACCOUNT_REQUEST, deleteAccount, context)
+    takeLatest(AuthTypes.SIGN_UP_REQUEST, signUp, context),
+    takeLatest(AuthTypes.SIGN_IN_REQUEST, signIn, context),
+    takeLatest(AuthTypes.SIGN_OUT, signOut, context),
+    takeLatest(AuthTypes.VERIFY_REQUEST, verifyEmail, context),
+    takeLatest(AuthTypes.RECOVERY_REQUEST, recoverPassword, context),
+    takeLatest(AuthTypes.PROFILE_EDIT_REQUEST, editProfile, context),
+    takeLatest(AuthTypes.DELETE_ACCOUNT_REQUEST, deleteAccount, context),
+
+    takeLatest(TodosTypes.ADD_TODO_REQUEST, addTodo, context)
   ]);
 }
