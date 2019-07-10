@@ -10,6 +10,6 @@ export const Container = styled.div`
   align-items: center;
   justify-content: center;
 
-  background: rgba(0, 0, 0, 0.9);
+  background: ${({ opacity }) => `rgba(0, 0, 0, ${opacity})`};
   z-index: 99;
 `;

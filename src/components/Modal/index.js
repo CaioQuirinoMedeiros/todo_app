@@ -1,8 +1,20 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 
 import { Container } from "./styles";
 
 export default class Modal extends Component {
+  static propTypes = {
+    opacity: PropTypes.number,
+    children: PropTypes.element.isRequired,
+    closeModal: PropTypes.func
+  };
+
+  static defaultProps = {
+    opacity: 0.9,
+    closeModal: () => {}
+  };
+
   componentDidMount() {
     document.addEventListener("click", this.clickOutsideEventListener);
   }
@@ -17,7 +29,11 @@ export default class Modal extends Component {
     document.removeEventListener("click", this.clickOutsideEventListener);
   }
   render() {
-    const { children } = this.props;
-    return <Container id="outsideCategoryModal">{children}</Container>;
+    const { children, opacity } = this.props;
+    return (
+      <Container opacity={opacity} id="outsideCategoryModal">
+        {children}
+      </Container>
+    );
   }
 }
