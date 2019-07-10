@@ -3,32 +3,77 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 
 import Button from "../../utils/button";
+import AddTodo from "../../components/AddTodo";
 import Todo from "../../components/Todo";
+import Modal from "../../components/Modal";
+import { LoaderComponent } from "../../components/Loader/styles";
 
 import TodosActions from "../../store/ducks/todos";
 
 import { Container, Title, SubTitle } from "./styles";
+import { Error, ErrorWrapper } from "../Auth/styles";
 
 class Todos extends Component {
+  componentDidMount() {
+    const { getTodosRequest } = this.props;
+
+    getTodosRequest();
+  }
+
   render() {
-    const { modalOpen, openModal, closeModal } = this.props;
+    const {
+      todos,
+      error,
+      todoMessage,
+      modalOpen,
+      openModal,
+      closeModal,
+      loading
+    } = this.props;
 
     return (
       <Container>
         <Title>Your todos</Title>
         <SubTitle>All tou have to do for now...</SubTitle>
+
         <Button type="button" onClick={() => openModal()}>
           Add Todo
         </Button>
 
-        {modalOpen && <Todo close={closeModal} />}
+        <ErrorWrapper>{error && <Error>{error}</Error>}</ErrorWrapper>
+        <ErrorWrapper>
+          {todoMessage.content && (
+            <Error type={todoMessage.type}>{todoMessage.content}</Error>
+          )}
+        </ErrorWrapper>
+
+        {loading && (
+          <Modal opacity={0.4}>
+            <LoaderComponent className="lds-ring" color="white">
+              <div />
+              <div />
+              <div />
+              <div />
+            </LoaderComponent>
+          </Modal>
+        )}
+
+        {todos.map(todo => (
+          <Todo key={todo.id} todo={todo} />
+        ))}
+
+        {modalOpen && <AddTodo close={closeModal} />}
       </Container>
     );
   }
 }
 
 const mapStateToProps = ({ todos }) => ({
-  modalOpen: todos.modalOpen
+  modalOpen: todos.addTodo.open,
+  todos: todos.data,
+  error: todos.error,
+  todoMessage: todos.todoMessage,
+  loading: todos.loading
 });
 
 const mapDispatchToProps = dispatch =>
