@@ -25,13 +25,13 @@ const todoSchema = Yup.object().shape({
 });
 
 class Todo extends Component {
-  // componentDidMount() {
-  //   const { cleanUp } = this.props;
-  //   cleanUp();
-  // }
+  componentDidMount() {
+    const { cleanUp } = this.props;
+    cleanUp();
+  }
 
   render() {
-    // const { signInRequest, loading, error } = this.props;
+    const { addTodoRequest, loading, error } = this.props;
 
     return (
       <Modal closeModal={this.props.close}>
@@ -40,7 +40,7 @@ class Todo extends Component {
           validationSchema={todoSchema}
           onSubmit={({ todo }, { setSubmitting }) => {
             console.log(todo);
-            this.props.addTodoRequest(todo);
+            addTodoRequest(todo);
             setSubmitting(false);
           }}
         >
@@ -54,15 +54,15 @@ class Todo extends Component {
                 <ErrorMessage name="todo" component={Error} />
               </ErrorWrapper>
 
-              <Button disabled={!isValid} type="submit">
-                {isSubmitting ? "Adding todo..." : "Add"}
+              <Button disabled={!isValid || loading} type="submit">
+                {loading ? "Adding todo..." : "Add"}
               </Button>
               <Button type="submit" red onClick={() => this.props.close()}>
                 Cancel
               </Button>
 
               <ErrorWrapper>
-                {/* {error && <Error center>{error}</Error>} */}
+                {error && <Error center>{error}</Error>}
               </ErrorWrapper>
             </Form>
           )}

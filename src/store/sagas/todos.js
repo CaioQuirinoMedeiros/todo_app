@@ -37,6 +37,7 @@ export function* addTodo({ getFirebase, getFirestore }, { todo }) {
     }
 
     yield put(TodosActions.addTodoSuccess());
+    yield put(TodosActions.closeModal());
   } catch (err) {
     console.log(err);
     yield put(
