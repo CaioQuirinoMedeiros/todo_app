@@ -129,12 +129,14 @@ export function* editProfile(
   }
 }
 
-export function* deleteAccount({ getFirebase, getFirestore }) {
+export function* deleteAccount({ getFirebase, getFirestore }, { password }) {
   const firebase = getFirebase();
   const firestore = getFirestore();
 
   try {
     const user = yield firebase.auth().currentUser;
+
+    yield firebase.auth().signInWithEmailAndPassword(user.email, password);
 
     yield firestore
       .collection("users")

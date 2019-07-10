@@ -32,9 +32,9 @@ const { Types, Creators } = createActions({
   ],
   profileEditSuccess: null,
   profileEditFailure: ["message"],
-  profileEditOpenConfirmation: null,
-  profileEditCloseConfirmation: null,
-  deleteAccountRequest: null,
+  deleteAccountOpen: null,
+  deleteAccountClose: null,
+  deleteAccountRequest: ["password"],
   deleteAccountFailure: ["message"]
 });
 
@@ -66,9 +66,12 @@ export const INITIAL_STATE = Immutable({
       type: null,
       content: ""
     },
+    loading: false
+  },
+  deleteAccount: {
+    open: false,
     loading: false,
-    confirmationOpen: false,
-    deleteLoading: false
+    error: ""
   }
 });
 
@@ -149,28 +152,28 @@ export const reducer = createReducer(INITIAL_STATE, {
         message: { type: "error", content: message }
       }
     }),
-  [Types.PROFILE_EDIT_OPEN_CONFIRMATION]: state =>
+  [Types.DELETE_ACCOUNT_OPEN]: state =>
     state.merge({
-      profileEdit: { ...state.profileEdit, confirmationOpen: true }
+      deleteAccount: { ...state.deleteAccount, open: true }
     }),
-  [Types.PROFILE_EDIT_CLOSE_CONFIRMATION]: state =>
+  [Types.DELETE_ACCOUNT_CLOSE]: state =>
     state.merge({
-      profileEdit: { ...state.profileEdit, confirmationOpen: false }
+      deleteAccount: { ...state.deleteAccount, open: false }
     }),
   [Types.DELETE_ACCOUNT_REQUEST]: state =>
     state.merge({
-      profileEdit: {
-        ...state.profileEdit,
-        deleteLoading: true,
-        message: { type: null, content: "" }
+      deleteAccount: {
+        ...state.deleteAccount,
+        loading: true,
+        error: ""
       }
     }),
   [Types.DELETE_ACCOUNT_FAILURE]: (state, { message }) =>
     state.merge({
-      profileEdit: {
-        ...state.profileEdit,
-        deleteLoading: false,
-        message: { type: "error", content: message }
+      deleteAccount: {
+        ...state.deleteAccount,
+        loading: false,
+        error: message
       }
     })
 });

@@ -7,6 +7,7 @@ import * as Yup from "yup";
 import AuthActions from "../../../store/ducks/auth";
 
 import Button from "../../../utils/button";
+import DeleteAccount from "../../../components/DeleteAccount";
 
 import {
   Container,
@@ -17,7 +18,6 @@ import {
   Title,
   SubTitle
 } from "../styles";
-import Confirmation from "../../../components/Confirmation";
 
 const profileSchema = Yup.object().shape({
   firstName: Yup.string()
@@ -44,12 +44,9 @@ const Profile = ({
   firebase,
   message,
   loading,
-  confirmationOpen,
-  deleteLoading,
-  profileEditOpenConfirmation,
-  profileEditCloseConfirmation,
   profileEditRequest,
-  deleteAccountRequest,
+  deleteAccount,
+  deleteAccountOpen,
   cleanUp
 }) => {
   useEffect(() => {
@@ -117,13 +114,8 @@ const Profile = ({
               {loading ? "Updating profile..." : "Submit"}
             </Button>
 
-            <Button
-              type="button"
-              disabled={deleteLoading}
-              red
-              onClick={() => profileEditOpenConfirmation()}
-            >
-              {deleteLoading ? "Deleting account..." : "Delete my account"}
+            <Button type="button" red onClick={() => deleteAccountOpen()}>
+              Delete my account
             </Button>
 
             <ErrorWrapper>
@@ -136,13 +128,7 @@ const Profile = ({
           </Form>
         )}
       </Formik>
-      {confirmationOpen && (
-        <Confirmation
-          close={profileEditCloseConfirmation}
-          confirm={deleteAccountRequest}
-          message="Do you really want to delete your account?"
-        />
-      )}
+      {deleteAccount.open && <DeleteAccount />}
     </Container>
   ) : null;
 };
@@ -151,8 +137,7 @@ const mapStateToProps = ({ auth, firebase }) => ({
   firebase,
   loading: auth.profileEdit.loading,
   message: auth.profileEdit.message,
-  confirmationOpen: auth.profileEdit.confirmationOpen,
-  deleteLoading: auth.profileEdit.deleteLoading
+  deleteAccount: auth.deleteAccount
 });
 
 const mapDispatchToProps = dispatch =>
