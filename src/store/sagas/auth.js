@@ -68,7 +68,7 @@ export function* verifyEmail({ getFirebase }) {
 
     yield user.sendEmailVerification();
 
-    yield put(AuthActions.verifySuccess());
+    yield put(AuthActions.verifySuccess(user.email));
   } catch (err) {
     console.log(err);
     yield put(
@@ -96,7 +96,7 @@ export function* recoverPassword({ getFirebase }, { email }) {
 
 export function* editProfile(
   { getFirebase, getFirestore },
-  { firstName, lastName, email, password }
+  { firstName, lastName, email }
 ) {
   const firebase = getFirebase();
   const firestore = getFirestore();
@@ -116,15 +116,31 @@ export function* editProfile(
         lastName
       });
 
-    if (password.length) {
-      yield user.updatePassword(password);
-    }
-
     yield put(AuthActions.profileEditSuccess());
   } catch (err) {
     console.log(err);
     yield put(
       AuthActions.profileEditFailure(err.message || "Something went wrong...")
+    );
+  }
+}
+
+export function* editPassword({ getFirebase }, { password, newPassword }) {
+  const firebase = getFirebase();
+
+  try {
+    const user = yield firebase.auth().currentUser;
+
+    yield firebase.auth().signInWithEmailAndPassword(user.email, password);
+
+    yield user.updatePassword(newPassword);
+
+    yield put(AuthActions.editPasswordSuccess());
+    yield put(AuthActions.editPasswordClose());
+  } catch (err) {
+    console.log(err);
+    yield put(
+      AuthActions.editPasswordFailure(err.message || "Something went wrong...")
     );
   }
 }
