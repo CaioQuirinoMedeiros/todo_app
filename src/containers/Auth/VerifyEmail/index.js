@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
+import PropTypes from "prop-types";
 
 import AuthActions from "../../../store/ducks/auth";
 
@@ -42,6 +43,16 @@ const VerifyEmail = ({ loading, message, verifyRequest, cleanUp }) => {
       </Form>
     </Container>
   );
+};
+
+VerifyEmail.propTypes = {
+  loading: PropTypes.bool.isRequired,
+  message: PropTypes.shape({
+    type: PropTypes.string,
+    content: PropTypes.string
+  }).isRequired,
+  verifyRequest: PropTypes.func.isRequired,
+  cleanUp: PropTypes.func.isRequired
 };
 
 const mapStateToProps = ({ auth }) => ({

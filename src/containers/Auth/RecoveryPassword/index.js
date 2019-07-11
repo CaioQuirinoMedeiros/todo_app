@@ -3,6 +3,7 @@ import * as Yup from "yup";
 import { Formik, ErrorMessage } from "formik";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
+import PropTypes from "prop-types";
 
 import AuthActions from "../../../store/ducks/auth";
 
@@ -70,6 +71,17 @@ const RecoveryPassword = ({ message, loading, recoveryRequest, cleanUp }) => {
       </Formik>
     </Container>
   );
+};
+
+RecoveryPassword.propTypes = {
+  message: PropTypes.string,
+  loading: PropTypes.bool.isRequired,
+  recoveryRequest: PropTypes.func.isRequired,
+  cleanUp: PropTypes.func.isRequired
+};
+
+RecoveryPassword.defaultProps = {
+  message: PropTypes.string
 };
 
 const mapStateToProps = ({ auth }) => ({

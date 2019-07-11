@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Formik, ErrorMessage } from "formik";
 import * as Yup from "yup";
+import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 
@@ -23,6 +24,14 @@ const deleteAccountSchema = Yup.object().shape({
 });
 
 class DeleteAccount extends Component {
+  static propTypes = {
+    cleanUp: PropTypes.func.isRequired,
+    deleteAccountRequest: PropTypes.func.isRequired,
+    deleteAccountClose: PropTypes.func.isRequired,
+    loading: PropTypes.bool.isRequired,
+    error: PropTypes.string.isRequired
+  };
+
   componentDidMount() {
     const { cleanUp } = this.props;
     cleanUp();
@@ -37,16 +46,15 @@ class DeleteAccount extends Component {
     } = this.props;
 
     return (
-      <Modal closeModal={this.props.close}>
+      <Modal closeModal={deleteAccountClose}>
         <Formik
           initialValues={{ password: "" }}
           validationSchema={deleteAccountSchema}
-          onSubmit={({ password }, { setSubmitting }) => {
+          onSubmit={({ password }) => {
             deleteAccountRequest(password);
-            setSubmitting(false);
           }}
         >
-          {({ isSubmitting, isValid }) => (
+          {({ isValid }) => (
             <Form>
               <Title>Delete account</Title>
               <SubTitle>Type your password to delete your account</SubTitle>

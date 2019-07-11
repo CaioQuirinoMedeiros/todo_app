@@ -2,12 +2,21 @@ import React, { Component } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { connect } from "react-redux";
+import PropTypes from "prop-types";
 
 import Logo from "../../Logo";
 
 import { Container, NavBar, NavList, NavItem, ItemLink } from "./styles";
 
 class SideDrawer extends Component {
+  static propTypes = {
+    loggedIn: PropTypes.bool
+  };
+
+  static defaultProps = {
+    loggedIn: false
+  };
+
   state = {
     isOpen: false
   };

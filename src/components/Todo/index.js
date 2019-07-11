@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
+import PropTypes from "prop-types";
 
 import Confirmation from "../Confirmation";
 
@@ -9,6 +10,16 @@ import TodosActions from "../../store/ducks/todos";
 import { TodoCard, CheckInput, TodoText, DeleteButton, Icon } from "./styles";
 
 class Todo extends Component {
+  static propTypes = {
+    todo: PropTypes.shape({
+      todo: PropTypes.string,
+      id: PropTypes.string,
+      done: PropTypes.bool
+    }).isRequired,
+    editTodoRequest: PropTypes.func.isRequired,
+    removeTodoRequest: PropTypes.func.isRequired
+  };
+
   state = {
     deleteConfirmation: false
   };
@@ -27,12 +38,6 @@ class Todo extends Component {
 
     textInput.removeEventListener("blur", this.editTodo);
   }
-
-  inputChange = e => {
-    const { todoInputChange, todo } = this.props;
-
-    todoInputChange(todo.id, e.target.textContent);
-  };
 
   editTodo = e => {
     const { editTodoRequest, todo } = this.props;

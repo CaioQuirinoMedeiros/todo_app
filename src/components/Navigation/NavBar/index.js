@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import PropTypes from "prop-types";
 
 import Logo from "../../Logo";
 
@@ -34,6 +35,14 @@ const NavBar = ({ loggedIn }) => (
     </NavList>
   </Container>
 );
+
+NavBar.propTypes = {
+  loggedIn: PropTypes.bool
+};
+
+NavBar.defaultProps = {
+  loggedIn: false
+};
 
 const mapStateToProps = ({ firebase }) => ({
   loggedIn: !!firebase.auth.uid

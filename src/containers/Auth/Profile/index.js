@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { Formik, ErrorMessage } from "formik";
 import { bindActionCreators } from "redux";
 import * as Yup from "yup";
+import PropTypes from "prop-types";
 
 import AuthActions from "../../../store/ducks/auth";
 
@@ -131,6 +132,29 @@ const Profile = ({
       {deleteAccount.open && <DeleteAccount />}
     </Container>
   ) : null;
+};
+
+Profile.propTypes = {
+  firebase: PropTypes.shape({
+    profile: PropTypes.shape({
+      firstName: PropTypes.string,
+      lastName: PropTypes.string
+    }),
+    auth: PropTypes.shape({
+      email: PropTypes.string
+    })
+  }).isRequired,
+  message: PropTypes.shape({
+    type: PropTypes.string,
+    content: PropTypes.string
+  }).isRequired,
+  loading: PropTypes.bool.isRequired,
+  profileEditRequest: PropTypes.func.isRequired,
+  deleteAccount: PropTypes.shape({
+    open: PropTypes.bool
+  }).isRequired,
+  deleteAccountOpen: PropTypes.func.isRequired,
+  cleanUp: PropTypes.func.isRequired
 };
 
 const mapStateToProps = ({ auth, firebase }) => ({

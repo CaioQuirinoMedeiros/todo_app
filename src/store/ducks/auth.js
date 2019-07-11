@@ -89,9 +89,13 @@ export const reducer = createReducer(INITIAL_STATE, {
   [Types.CLEAN_UP]: state =>
     state.merge({
       error: "",
-      verifyEmail: { type: null, message: "" },
-      recoveryPassword: { type: null, message: "" },
-      profileEdit: { type: null, message: "" }
+      verifyEmail: { loading: false, message: { type: null, content: "" } },
+      recoveryPassword: {
+        loading: false,
+        message: { type: null, content: "" }
+      },
+      profileEdit: { loading: false, message: { type: null, content: "" } },
+      deleteAccount: { ...state.deleteAccount, error: "" }
     }),
   [Types.SIGN_FAILURE]: (state, { message }) =>
     state.merge({ loading: false, error: message }),

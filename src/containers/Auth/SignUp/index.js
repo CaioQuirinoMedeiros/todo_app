@@ -3,6 +3,7 @@ import { Formik, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
+import PropTypes from "prop-types";
 
 import AuthActions from "../../../store/ducks/auth";
 
@@ -39,6 +40,13 @@ const signUpSchema = Yup.object().shape({
 });
 
 class SignUp extends Component {
+  static propTypes = {
+    cleanUp: PropTypes.func.isRequired,
+    signUpRequest: PropTypes.func.isRequired,
+    loading: PropTypes.bool.isRequired,
+    error: PropTypes.string.isRequired
+  };
+
   componentDidMount() {
     const { cleanUp } = this.props;
     cleanUp();
@@ -58,12 +66,11 @@ class SignUp extends Component {
             confirmPassword: ""
           }}
           validationSchema={signUpSchema}
-          onSubmit={(values, { setSubmitting }) => {
-            signUpRequest(...Object.values(values));
-            setSubmitting(false);
+          onSubmit={({ firstName, lastName, email, password }) => {
+            signUpRequest(firstName, lastName, email, password);
           }}
         >
-          {({ isSubmitting, isValid }) => (
+          {({ isValid }) => (
             <Form>
               <Title>Sign up for an account</Title>
 
