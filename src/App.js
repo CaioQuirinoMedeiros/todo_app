@@ -23,6 +23,7 @@ const App = ({ loggedIn, emailVerified }) => {
     ) : (
       <Switch>
         <Route exact path="/verify-email" component={VerifyEmail} />
+        <Route exact path="/profile" component={Profile} />
         <Route exact path="/logout" component={Logout} />
         <Redirect to="/verify-email" />
       </Switch>
