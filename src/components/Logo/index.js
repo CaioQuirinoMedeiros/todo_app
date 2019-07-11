@@ -1,7 +1,7 @@
-import React from 'react';
+import React from "react";
 
-import { LogoWrapper } from './styles';
+import { LogoWrapper } from "./styles";
 
-const Logo = () => <LogoWrapper>LOGO</LogoWrapper>;
+const Logo = () => <LogoWrapper>PRODUCTIVITY</LogoWrapper>;
 
 export default Logo;
