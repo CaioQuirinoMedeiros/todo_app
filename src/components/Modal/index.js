@@ -16,7 +16,7 @@ export default class Modal extends Component {
   };
 
   componentDidMount() {
-    document.addEventListener("click", this.clickOutsideEventListener);
+    document.addEventListener("mousedown", this.clickOutsideEventListener);
   }
 
   clickOutsideEventListener = e => {
