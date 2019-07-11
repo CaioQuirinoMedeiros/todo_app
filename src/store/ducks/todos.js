@@ -58,9 +58,11 @@ export const reducer = createReducer(INITIAL_STATE, {
       todoMessage: { type: "success", content: "" }
     }),
   [Types.ADD_TODO_SUCCESS]: state =>
-    state.merge({ addTodo: { error: "", loading: false } }),
+    state.merge({ addTodo: { open: false, error: "", loading: false } }),
   [Types.ADD_TODO_FAILURE]: (state, { message }) =>
-    state.merge({ addTodo: { error: message, loading: false } }),
+    state.merge({
+      addTodo: { ...state.addTodo, error: message, loading: false }
+    }),
   [Types.OPEN_MODAL]: state =>
     state.merge({ addTodo: { ...state.addTodo, open: true } }),
   [Types.CLOSE_MODAL]: state =>
