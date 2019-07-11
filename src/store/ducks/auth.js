@@ -29,6 +29,7 @@ const { Types, Creators } = createActions({
   deleteAccountOpen: null,
   deleteAccountClose: null,
   deleteAccountRequest: ["password"],
+  deleteAccountSuccess: null,
   deleteAccountFailure: ["message"],
   editPasswordOpen: null,
   editPasswordClose: null,
@@ -177,6 +178,14 @@ export const reducer = createReducer(INITIAL_STATE, {
       deleteAccount: {
         ...state.deleteAccount,
         loading: true,
+        error: ""
+      }
+    }),
+  [Types.DELETE_ACCOUNT_SUCCESS]: state =>
+    state.merge({
+      deleteAccount: {
+        open: false,
+        loading: false,
         error: ""
       }
     }),
