@@ -27,7 +27,6 @@ class Todos extends Component {
       todoMessage,
       modalOpen,
       openModal,
-      closeModal,
       loading
     } = this.props;
 
@@ -62,7 +61,7 @@ class Todos extends Component {
           <Todo key={todo.id} todo={todo} />
         ))}
 
-        {modalOpen && <AddTodo close={closeModal} />}
+        {modalOpen && <AddTodo />}
       </Container>
     );
   }

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Formik, ErrorMessage } from "formik";
 import * as Yup from "yup";
+import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 
@@ -25,25 +26,32 @@ const todoSchema = Yup.object().shape({
 });
 
 class AddTodo extends Component {
+  static propTypes = {
+    cleanUp: PropTypes.func.isRequired,
+    addTodoRequest: PropTypes.func.isRequired,
+    closeModal: PropTypes.func.isRequired,
+    loading: PropTypes.bool.isRequired,
+    error: PropTypes.string.isRequired
+  };
+
   componentWillUnmount() {
     const { cleanUp } = this.props;
     cleanUp();
   }
 
   render() {
-    const { addTodoRequest, loading, error } = this.props;
+    const { addTodoRequest, loading, error, closeModal } = this.props;
 
     return (
-      <Modal closeModal={this.props.close}>
+      <Modal closeModal={closeModal}>
         <Formik
           initialValues={{ todo: "" }}
           validationSchema={todoSchema}
-          onSubmit={({ todo }, { setSubmitting }) => {
+          onSubmit={({ todo }) => {
             addTodoRequest(todo);
-            setSubmitting(false);
           }}
         >
-          {({ isSubmitting, isValid }) => (
+          {({ isValid }) => (
             <Form>
               <Title>Add new todo</Title>
               <SubTitle>Type your todo and press add</SubTitle>
@@ -56,7 +64,7 @@ class AddTodo extends Component {
               <Button disabled={!isValid || loading} type="submit">
                 {loading ? "Adding todo..." : "Add"}
               </Button>
-              <Button type="submit" red onClick={() => this.props.close()}>
+              <Button type="submit" red onClick={() => closeModal()}>
                 Cancel
               </Button>
 
