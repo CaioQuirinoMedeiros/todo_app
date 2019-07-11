@@ -8,7 +8,8 @@ import {
   verifyEmail,
   recoverPassword,
   editProfile,
-  deleteAccount
+  deleteAccount,
+  editPassword
 } from "./auth";
 
 import { TodosTypes } from "../ducks/todos";
@@ -23,6 +24,7 @@ export default function* rootSaga(context) {
     takeLatest(AuthTypes.RECOVERY_REQUEST, recoverPassword, context),
     takeLatest(AuthTypes.PROFILE_EDIT_REQUEST, editProfile, context),
     takeLatest(AuthTypes.DELETE_ACCOUNT_REQUEST, deleteAccount, context),
+    takeLatest(AuthTypes.EDIT_PASSWORD_REQUEST, editPassword, context),
 
     takeLatest(TodosTypes.ADD_TODO_REQUEST, addTodo, context),
     takeLatest(TodosTypes.GET_TODOS_REQUEST, getTodos, context),

@@ -5,6 +5,7 @@ export default styled.button`
   height: 3.5rem;
   margin-top: 1rem;
   border-radius: 2rem;
+  margin-bottom: ${props => (props.marginBottom ? "2rem" : 0)};
 
   background: ${props =>
     props.red ? "var(--color-red)" : "var(--color-mainLighter)"};

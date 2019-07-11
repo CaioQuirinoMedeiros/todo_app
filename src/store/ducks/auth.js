@@ -18,24 +18,23 @@ const { Types, Creators } = createActions({
   cleanUp: null,
   signOut: null,
   verifyRequest: null,
-  verifySuccess: null,
+  verifySuccess: ["email"],
   verifyFailure: ["message"],
   recoveryRequest: ["email"],
   recoverySuccess: null,
   recoveryFailure: ["message"],
-  profileEditRequest: [
-    "firstName",
-    "lastName",
-    "email",
-    "password",
-    "passwordConfirmation"
-  ],
+  profileEditRequest: ["firstName", "lastName", "email"],
   profileEditSuccess: null,
   profileEditFailure: ["message"],
   deleteAccountOpen: null,
   deleteAccountClose: null,
   deleteAccountRequest: ["password"],
-  deleteAccountFailure: ["message"]
+  deleteAccountFailure: ["message"],
+  editPasswordOpen: null,
+  editPasswordClose: null,
+  editPasswordRequest: ["password", "newPassword"],
+  editPasswordSuccess: null,
+  editPasswordFailure: ["message"]
 });
 
 export const AuthTypes = Types;
@@ -72,6 +71,11 @@ export const INITIAL_STATE = Immutable({
     open: false,
     loading: false,
     error: ""
+  },
+  editPassword: {
+    open: false,
+    loading: false,
+    error: ""
   }
 });
 
@@ -95,7 +99,8 @@ export const reducer = createReducer(INITIAL_STATE, {
         message: { type: null, content: "" }
       },
       profileEdit: { loading: false, message: { type: null, content: "" } },
-      deleteAccount: { ...state.deleteAccount, error: "" }
+      deleteAccount: { ...state.deleteAccount, loading: false, error: "" },
+      editPassword: { ...state.editPassword, loading: false, error: "" }
     }),
   [Types.SIGN_FAILURE]: (state, { message }) =>
     state.merge({ loading: false, error: message }),
@@ -103,11 +108,14 @@ export const reducer = createReducer(INITIAL_STATE, {
     state.merge({
       verifyEmail: { message: { type: null, content: "" }, loading: true }
     }),
-  [Types.VERIFY_SUCCESS]: state =>
+  [Types.VERIFY_SUCCESS]: (state, { email }) =>
     state.merge({
       verifyEmail: {
         loading: false,
-        message: { type: "success", content: "Email was successfully sent" }
+        message: {
+          type: "success",
+          content: `Email was successfully sent to ${email}`
+        }
       }
     }),
   [Types.VERIFY_FAILURE]: (state, { message }) =>
@@ -176,6 +184,40 @@ export const reducer = createReducer(INITIAL_STATE, {
     state.merge({
       deleteAccount: {
         ...state.deleteAccount,
+        loading: false,
+        error: message
+      }
+    }),
+  [Types.EDIT_PASSWORD_OPEN]: state =>
+    state.merge({
+      editPassword: { ...state.editPassword, open: true }
+    }),
+  [Types.EDIT_PASSWORD_CLOSE]: state =>
+    state.merge({
+      editPassword: { ...state.editPassword, open: false }
+    }),
+  [Types.EDIT_PASSWORD_REQUEST]: state =>
+    state.merge({
+      editPassword: {
+        ...state.editPassword,
+        loading: true,
+        error: ""
+      }
+    }),
+  [Types.EDIT_PASSWORD_SUCCESS]: state =>
+    state.merge({
+      profileEdit: {
+        loading: false,
+        message: {
+          type: "success",
+          content: "Your password was successfully updated!"
+        }
+      }
+    }),
+  [Types.EDIT_PASSWORD_FAILURE]: (state, { message }) =>
+    state.merge({
+      editPassword: {
+        ...state.editPassword,
         loading: false,
         error: message
       }

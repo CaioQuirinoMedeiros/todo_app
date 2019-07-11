@@ -9,6 +9,7 @@ import AuthActions from "../../../store/ducks/auth";
 
 import Button from "../../../utils/button";
 import DeleteAccount from "../../../components/DeleteAccount";
+import EditPassword from "../../../components/EditPassword";
 
 import {
   Container,
@@ -31,14 +32,7 @@ const profileSchema = Yup.object().shape({
     .max(25, "Too long"),
   email: Yup.string()
     .email("Invalid email")
-    .required("The email is required"),
-  password: Yup.string().min(8, "Your password must be at least 8 characters"),
-  confirmPassword: Yup.string().when("password", {
-    is: password => password.length > 0,
-    then: Yup.string()
-      .required("You need to confirm your password")
-      .oneOf([Yup.ref("password"), null], "Password does'nt match")
-  })
+    .required("The email is required")
 });
 
 const Profile = ({
@@ -48,6 +42,8 @@ const Profile = ({
   profileEditRequest,
   deleteAccount,
   deleteAccountOpen,
+  editPassword,
+  editPasswordOpen,
   cleanUp
 }) => {
   useEffect(() => {
@@ -62,9 +58,7 @@ const Profile = ({
         initialValues={{
           firstName: firebase.profile.firstName,
           lastName: firebase.profile.lastName,
-          email: firebase.auth.email,
-          password: "",
-          confirmPassword: ""
+          email: firebase.auth.email
         }}
         validationSchema={profileSchema}
         onSubmit={(values, { setSubmitting }) => {
@@ -93,26 +87,12 @@ const Profile = ({
               <ErrorMessage name="email" component={Error} />
             </ErrorWrapper>
 
-            <Input
-              type="password"
-              name="password"
-              placeholder="Your password"
-            />
-            <ErrorWrapper>
-              <ErrorMessage name="password" component={Error} />
-            </ErrorWrapper>
-
-            <Input
-              type="password"
-              name="confirmPassword"
-              placeholder="Re-type your password"
-            />
-            <ErrorWrapper>
-              <ErrorMessage name="confirmPassword" component={Error} />
-            </ErrorWrapper>
-
-            <Button disabled={!isValid || loading} type="submit">
+            <Button disabled={!isValid || loading} type="submit" marginBottom>
               {loading ? "Updating profile..." : "Submit"}
+            </Button>
+
+            <Button type="button" onClick={() => editPasswordOpen()}>
+              Edit password
             </Button>
 
             <Button type="button" red onClick={() => deleteAccountOpen()}>
@@ -130,6 +110,7 @@ const Profile = ({
         )}
       </Formik>
       {deleteAccount.open && <DeleteAccount />}
+      {editPassword.open && <EditPassword />}
     </Container>
   ) : null;
 };
@@ -161,7 +142,8 @@ const mapStateToProps = ({ auth, firebase }) => ({
   firebase,
   loading: auth.profileEdit.loading,
   message: auth.profileEdit.message,
-  deleteAccount: auth.deleteAccount
+  deleteAccount: auth.deleteAccount,
+  editPassword: auth.editPassword
 });
 
 const mapDispatchToProps = dispatch =>
