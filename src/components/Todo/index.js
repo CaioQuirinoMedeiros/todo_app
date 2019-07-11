@@ -71,7 +71,11 @@ class Todo extends Component {
           />
           <span className="checkmark" />
         </CheckInput>
-        <TodoText contentEditable={!todo.done} id={`text-${todo.id}`}>
+        <TodoText
+          suppressContentEditableWarning
+          contentEditable={!todo.done}
+          id={`text-${todo.id}`}
+        >
           {todo.todo}
         </TodoText>
         <DeleteButton
