@@ -159,7 +159,14 @@ export function* deleteAccount({ getFirebase, getFirestore }, { password }) {
       .doc(user.uid)
       .delete();
 
+    yield firestore
+      .collection("todos")
+      .doc(user.uid)
+      .delete();
+
     yield user.delete();
+
+    yield put(AuthActions.deleteAccountSuccess());
   } catch (err) {
     console.log(err);
     yield put(
