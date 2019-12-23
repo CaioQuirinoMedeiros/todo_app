@@ -54,7 +54,6 @@ class EditPassword extends Component {
     return (
       <Modal closeModal={editPasswordClose}>
         <Formik
-          initialValues={{ password: "" }}
           validationSchema={editPasswordSchema}
           onSubmit={({ password, newPassword }) => {
             editPasswordRequest(password, newPassword);

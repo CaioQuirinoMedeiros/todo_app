@@ -48,7 +48,6 @@ class DeleteAccount extends Component {
     return (
       <Modal closeModal={deleteAccountClose}>
         <Formik
-          initialValues={{ password: "" }}
           validationSchema={deleteAccountSchema}
           onSubmit={({ password }) => {
             deleteAccountRequest(password);

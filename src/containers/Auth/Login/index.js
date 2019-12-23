@@ -25,7 +25,6 @@ const loginSchema = Yup.object().shape({
 
 function Login() {
   const loading = useSelector(({ auth }) => auth.loading);
-  const error = useSelector(({ auth }) => auth.error);
   const dispatch = useDispatch();
 
   function handleSignIn(data) {
@@ -35,7 +34,6 @@ function Login() {
   return (
     <Container>
       <Formik
-        initialValues={{ email: "", password: "" }}
         validationSchema={loginSchema}
         onSubmit={handleSignIn}
       >

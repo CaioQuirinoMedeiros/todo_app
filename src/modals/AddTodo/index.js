@@ -26,7 +26,6 @@ function AddTodo({ visible, close, ...rest }) {
   return (
     <Modal close={close} visible={visible}>
       <Formik
-        initialValues={{ todo: "" }}
         validationSchema={todoSchema}
         onSubmit={handleAddTodo}
       >

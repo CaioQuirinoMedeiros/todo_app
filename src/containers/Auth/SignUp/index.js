@@ -37,16 +37,7 @@ function SignUp() {
 
   return (
     <Container>
-      <Formik
-        initialValues={{
-          firstName: "",
-          lastName: "",
-          email: "",
-          password: ""
-        }}
-        validationSchema={signUpSchema}
-        onSubmit={handleSignUp}
-      >
+      <Formik validationSchema={signUpSchema} onSubmit={handleSignUp}>
         {({ isValid, errors }) => (
           <Form>
             <Title>Sign up for an account</Title>
