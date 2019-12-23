@@ -1,11 +1,9 @@
-import React, { Component } from "react";
+import React from "react";
 import { Formik, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
-import PropTypes from "prop-types";
+import { useDispatch, useSelector } from "react-redux";
 
-import AuthActions from "../../../store/ducks/auth";
+import AuthActions from "../../../store/modules/auth/reducer";
 
 import Button from "../../../utils/button";
 
@@ -27,30 +25,21 @@ const loginSchema = Yup.object().shape({
   password: Yup.string().required("The password is required")
 });
 
-class Login extends Component {
-  static propTypes = {
-    cleanUp: PropTypes.func.isRequired,
-    signInRequest: PropTypes.func.isRequired,
-    loading: PropTypes.bool.isRequired,
-    error: PropTypes.string.isRequired
-  };
+function Login ( ) {
+  const loading = useSelector(({ auth }) => auth.loading)
+  const error = useSelector(({ auth }) => auth.error)
+  const dispatch = useDispatch()
 
-  componentDidMount() {
-    const { cleanUp } = this.props;
-    cleanUp();
+  function handleSignIn (data) {
+    dispatch(AuthActions.signInRequest(data))
   }
-
-  render() {
-    const { signInRequest, loading, error } = this.props;
 
     return (
       <Container>
         <Formik
           initialValues={{ email: "", password: "" }}
           validationSchema={loginSchema}
-          onSubmit={({ email, password }) => {
-            signInRequest(email, password);
-          }}
+          onSubmit={handleSignIn}
         >
           {({ isValid }) => (
             <Form>
@@ -87,18 +76,6 @@ class Login extends Component {
         </Formik>
       </Container>
     );
-  }
 }
 
-const mapStateToProps = ({ auth }) => ({
-  loading: auth.loading,
-  error: auth.error
-});
-
-const mapDispatchToProps = dispatch =>
-  bindActionCreators(AuthActions, dispatch);
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Login);
+export default Login

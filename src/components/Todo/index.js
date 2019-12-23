@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import PropTypes from "prop-types";
 
-import Confirmation from "../Confirmation";
+import Confirmation from "../../modals/Confirmation";
 
 import TodosActions from "../../store/ducks/todos";
 

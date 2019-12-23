@@ -44,8 +44,9 @@ export const NavList = styled.ul`
   padding: 1rem 0;
 
   border-top: 1px solid var(--color-white);
-  opacity: ${props => (props.isOpen ? 1 : 0)};
-  transform: translateY(${props => (props.isOpen ? "0%" : "-100%")});
+  opacity: ${({ open }) => (open ? 1 : 0)};
+  /* transform: translateY(${props => (props.isOpen ? "0%" : "-100%")}); */
+  transform: ${({ open }) => `translateY(${open ? "0" : "-100"}%)`};
   z-index: 10;
   background-color: var(--color-main);
   transition: all 0.2s;

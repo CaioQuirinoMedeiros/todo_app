@@ -1,17 +1,10 @@
 import { createStore, compose, applyMiddleware } from "redux";
 import createSagaMiddleware from "redux-saga";
-import firebase from "../utils/firebase";
-import { reactReduxFirebase, getFirebase } from "react-redux-firebase";
-import { reduxFirestore, getFirestore } from "redux-firestore";
 
-import reducers from "./ducks";
-import sagas from "./sagas";
+import firebase from '../services/firebase'
 
-const rrfConfig = {
-  userProfile: "users",
-  useFirestoreForProfile: true,
-  attachAuthIsReady: true
-};
+import rootReducer from "./rootReducer";
+import rootSaga from "./rootSaga";
 
 const middlewares = [];
 
@@ -25,14 +18,10 @@ const composeEnhancers =
     : compose;
 
 const store = createStore(
-  reducers,
-  composeEnhancers(
-    reactReduxFirebase(firebase, rrfConfig),
-    reduxFirestore(firebase),
-    applyMiddleware(...middlewares)
-  )
+  rootReducer,
+  composeEnhancers(applyMiddleware(...middlewares))
 );
 
-sagaMiddleware.run(sagas, { getFirebase, getFirestore });
+sagaMiddleware.run(rootSaga, firebase);
 
 export default store;

@@ -1,102 +1,45 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
-import PropTypes from "prop-types";
+import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 
 import Button from "../../utils/button";
-import AddTodo from "../../components/AddTodo";
+import AddTodo from "../../modals/AddTodo";
 import Todo from "../../components/Todo";
-import Modal from "../../components/Modal";
-import { LoaderComponent } from "../../components/Loader/styles";
 
-import TodosActions from "../../store/ducks/todos";
+import TodosActions from "../../store/modules/todos/reducer";
 
 import { Container, Title, SubTitle } from "./styles";
-import { Error, ErrorWrapper } from "../Auth/styles";
 
-class Todos extends Component {
-  static propTypes = {
-    getTodosRequest: PropTypes.func.isRequired,
-    modalOpen: PropTypes.bool.isRequired,
-    openModal: PropTypes.func.isRequired,
-    error: PropTypes.string.isRequired,
-    todoMessage: PropTypes.shape({
-      type: PropTypes.string,
-      content: PropTypes.string
-    }).isRequired,
-    loading: PropTypes.bool.isRequired,
-    todos: PropTypes.arrayOf(
-      PropTypes.shape({
-        id: PropTypes.string
-      })
-    ).isRequired
-  };
+function Todos() {
+  const [modalOpen, setModalOpen] = useState(false);
 
-  componentDidMount() {
-    const { getTodosRequest } = this.props;
+  const todos = useSelector(({ todos }) => todos.data);
 
-    getTodosRequest();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    loadTodos();
+  }, []);
+
+  function loadTodos() {
+    dispatch(TodosActions.getTodosRequest());
   }
 
-  render() {
-    const {
-      todos,
-      error,
-      todoMessage,
-      modalOpen,
-      openModal,
-      loading
-    } = this.props;
+  return (
+    <Container>
+      <Title>Your todos</Title>
+      <SubTitle>All tou have to do for now...</SubTitle>
 
-    return (
-      <Container>
-        <Title>Your todos</Title>
-        <SubTitle>All tou have to do for now...</SubTitle>
+      <Button type="button" onClick={() => setModalOpen(true)}>
+        Add Todo
+      </Button>
 
-        <Button type="button" onClick={() => openModal()}>
-          Add Todo
-        </Button>
+      {todos.map(todo => (
+        <Todo key={todo.id} todo={todo} />
+      ))}
 
-        <ErrorWrapper>{error && <Error>{error}</Error>}</ErrorWrapper>
-        <ErrorWrapper>
-          {todoMessage.content && (
-            <Error type={todoMessage.type}>{todoMessage.content}</Error>
-          )}
-        </ErrorWrapper>
-
-        {loading && (
-          <Modal opacity={0.4}>
-            <LoaderComponent className="lds-ring" color="white">
-              <div />
-              <div />
-              <div />
-              <div />
-            </LoaderComponent>
-          </Modal>
-        )}
-
-        {todos.map(todo => (
-          <Todo key={todo.id} todo={todo} />
-        ))}
-
-        {modalOpen && <AddTodo />}
-      </Container>
-    );
-  }
+      <AddTodo visible={modalOpen} close={() => setModalOpen(false)} />
+    </Container>
+  );
 }
 
-const mapStateToProps = ({ todos }) => ({
-  modalOpen: todos.addTodo.open,
-  todos: todos.data,
-  error: todos.error,
-  todoMessage: todos.todoMessage,
-  loading: todos.loading
-});
-
-const mapDispatchToProps = dispatch =>
-  bindActionCreators(TodosActions, dispatch);
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Todos);
+export default Todos;

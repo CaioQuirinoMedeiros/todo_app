@@ -1,11 +1,9 @@
-import React, { Component } from "react";
+import React from "react";
 import { Formik, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
-import PropTypes from "prop-types";
+import { useDispatch, useSelector } from "react-redux";
 
-import AuthActions from "../../../store/ducks/auth";
+import AuthActions from "../../../store/modules/auth/reducer";
 
 import Button from "../../../utils/button";
 
@@ -33,111 +31,80 @@ const signUpSchema = Yup.object().shape({
     .required("The email is required"),
   password: Yup.string()
     .required("The password is required")
-    .min(8, "Your password must be at least 8 characters"),
-  confirmPassword: Yup.string()
-    .oneOf([Yup.ref("password"), null], "Password does'nt match")
-    .required("You need to confirm your password")
+    .min(8, "Your password must be at least 8 characters")
 });
 
-class SignUp extends Component {
-  static propTypes = {
-    cleanUp: PropTypes.func.isRequired,
-    signUpRequest: PropTypes.func.isRequired,
-    loading: PropTypes.bool.isRequired,
-    error: PropTypes.string.isRequired
-  };
+function SignUp() {
+  const loading = useSelector(({ auth }) => auth.loading);
+  const error = useSelector(({ auth }) => auth.error);
 
-  componentDidMount() {
-    const { cleanUp } = this.props;
-    cleanUp();
+  console.log(AuthActions)
+
+  const dispatch = useDispatch();
+
+  function handleSignUp(data) {
+    dispatch(AuthActions.signUpRequest(data));
+    console.log("handleSignUp: ", data);
   }
 
-  render() {
-    const { signUpRequest, loading, error } = this.props;
+  return (
+    <Container>
+      <Formik
+        initialValues={{
+          firstName: "",
+          lastName: "",
+          email: "",
+          password: ""
+        }}
+        validationSchema={signUpSchema}
+        onSubmit={handleSignUp}
+      >
+        {({ isValid, errors }) => (
+          <Form>
+            <Title>Sign up for an account</Title>
 
-    return (
-      <Container>
-        <Formik
-          initialValues={{
-            firstName: "",
-            lastName: "",
-            email: "",
-            password: "",
-            confirmPassword: ""
-          }}
-          validationSchema={signUpSchema}
-          onSubmit={({ firstName, lastName, email, password }) => {
-            signUpRequest(firstName, lastName, email, password);
-          }}
-        >
-          {({ isValid }) => (
-            <Form>
-              <Title>Sign up for an account</Title>
+            <SubTitle>
+              Fill in yout details to register your new account
+            </SubTitle>
 
-              <SubTitle>
-                Fill in yout details to register your new account
-              </SubTitle>
+            <Input
+              type="text"
+              name="firstName"
+              placeholder="Your first name"
+              error={errors.firstName}
+            />
+            <Input
+              type="text"
+              name="lastName"
+              placeholder="Your last name"
+              error={errors.lastName}
+            />
 
-              <Input
-                type="text"
-                name="firstName"
-                placeholder="Your first name"
-              />
-              <ErrorWrapper>
-                <ErrorMessage name="firstName" component={Error} />
-              </ErrorWrapper>
+            <Input
+              type="email"
+              name="email"
+              placeholder="Your email"
+              error={errors.email}
+            />
 
-              <Input type="text" name="lastName" placeholder="Your last name" />
-              <ErrorWrapper>
-                <ErrorMessage name="lastName" component={Error} />
-              </ErrorWrapper>
+            <Input
+              type="password"
+              name="password"
+              placeholder="Your password"
+              error={errors.password}
+            />
 
-              <Input type="email" name="email" placeholder="Your email" />
-              <ErrorWrapper>
-                <ErrorMessage name="email" component={Error} />
-              </ErrorWrapper>
-
-              <Input
-                type="password"
-                name="password"
-                placeholder="Your password"
-              />
-              <ErrorWrapper>
-                <ErrorMessage name="password" component={Error} />
-              </ErrorWrapper>
-
-              <Input
-                type="password"
-                name="confirmPassword"
-                placeholder="Re-type your password"
-              />
-              <ErrorWrapper>
-                <ErrorMessage name="confirmPassword" component={Error} />
-              </ErrorWrapper>
-
-              <Button disabled={!isValid || loading} type="submit">
-                {loading ? "Loading..." : "Submit"}
-              </Button>
-              <ErrorWrapper>
-                {error && <Error center>{error}</Error>}
-              </ErrorWrapper>
-            </Form>
-          )}
-        </Formik>
-      </Container>
-    );
-  }
+            <Button disabled={!isValid || loading} type="submit">
+              {loading ? "Loading..." : "Submit"}
+            </Button>
+            <ErrorWrapper>
+              {error && <Error center>{error}</Error>}
+            </ErrorWrapper>
+          </Form>
+        )}
+      </Formik>
+    </Container>
+  );
 }
 
-const mapStateToProps = ({ auth }) => ({
-  loading: auth.loading,
-  error: auth.error
-});
-
-const mapDispatchToProps = dispatch =>
-  bindActionCreators(AuthActions, dispatch);
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(SignUp);
+export default SignUp;

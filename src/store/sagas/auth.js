@@ -27,7 +27,6 @@ export function* signUp(
 
     yield put(AuthActions.signInSuccess());
   } catch (err) {
-    console.log(err);
     yield put(
       AuthActions.signFailure(err.message || "Something went wrong...")
     );
@@ -42,7 +41,6 @@ export function* signIn({ getFirebase }, { email, password }) {
 
     yield put(AuthActions.signInSuccess());
   } catch (err) {
-    console.log(err);
     yield put(
       AuthActions.signFailure(
         err.message || "Login failed, check your credentials"
@@ -70,7 +68,6 @@ export function* verifyEmail({ getFirebase }) {
 
     yield put(AuthActions.verifySuccess(user.email));
   } catch (err) {
-    console.log(err);
     yield put(
       AuthActions.verifyFailure(err.message || "Couldn't send the email")
     );
