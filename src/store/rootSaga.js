@@ -2,10 +2,12 @@ import { all, takeLatest } from "redux-saga/effects";
 
 import { AuthTypes } from "./modules/auth/reducer";
 import { VerifyEmailTypes } from "./modules/verifyEmail/reducer";
+import { PasswordTypes } from "./modules/password/reducer";
 import { TodosTypes } from "./modules/todos/reducer";
 
 import { signUp, signIn, signOut } from "./modules/auth/sagas";
 import { sendVerificationEmail } from "./modules/verifyEmail/sagas";
+import { sendRecoveryPasswordEmail } from "./modules/password/sagas";
 import { addTodo, getTodos, editTodo, removeTodo } from "./modules/todos/sagas";
 
 export default function* rootSaga(firebase) {
@@ -16,6 +18,8 @@ export default function* rootSaga(firebase) {
     takeLatest(AuthTypes.SIGN_UP_SUCCESS, sendVerificationEmail, firebase),
     
     takeLatest(VerifyEmailTypes.VERIFY_EMAIL_REQUEST, sendVerificationEmail, firebase),
+    
+    takeLatest(PasswordTypes.RECOVER_PASSWORD_REQUEST, sendRecoveryPasswordEmail, firebase),
 
     takeLatest(TodosTypes.ADD_TODO_REQUEST, addTodo, firebase),
     takeLatest(TodosTypes.GET_TODOS_REQUEST, getTodos, firebase),

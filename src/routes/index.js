@@ -18,7 +18,7 @@ function Routes() {
     <Switch>
       <Guest exact path="/login" component={Login} />
       <Guest exact path="/signup" component={SignUp} />
-      <Signed exact path="/recovery" component={RecoveryPassword} />
+      <Guest exact path="/recovery" component={RecoveryPassword} />
       <Signed exact path="/verify-email" component={VerifyEmail} />
       <Signed exact path="/profile" component={Profile} />
       <Signed exact path="/logout" component={Logout} />
