@@ -1,5 +1,5 @@
 import React from "react";
-import { Formik, ErrorMessage } from "formik";
+import { Formik } from "formik";
 import * as Yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -7,15 +7,7 @@ import AuthActions from "../../../store/modules/auth/reducer";
 
 import Button from "../../../utils/button";
 
-import {
-  Container,
-  Form,
-  Input,
-  ErrorWrapper,
-  Error,
-  Title,
-  SubTitle
-} from "../styles";
+import { Container, Form, Input, Title, SubTitle } from "../styles";
 
 const signUpSchema = Yup.object().shape({
   firstName: Yup.string()
@@ -36,15 +28,11 @@ const signUpSchema = Yup.object().shape({
 
 function SignUp() {
   const loading = useSelector(({ auth }) => auth.loading);
-  const error = useSelector(({ auth }) => auth.error);
-
-  console.log(AuthActions)
 
   const dispatch = useDispatch();
 
   function handleSignUp(data) {
     dispatch(AuthActions.signUpRequest(data));
-    console.log("handleSignUp: ", data);
   }
 
   return (
@@ -97,9 +85,6 @@ function SignUp() {
             <Button disabled={!isValid || loading} type="submit">
               {loading ? "Loading..." : "Submit"}
             </Button>
-            <ErrorWrapper>
-              {error && <Error center>{error}</Error>}
-            </ErrorWrapper>
           </Form>
         )}
       </Formik>
