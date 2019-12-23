@@ -3,11 +3,11 @@ import { put, apply, call } from "redux-saga/effects";
 import AuthActions from "./reducer";
 
 export function* signUp(firebase, { user }) {
-  const {email, password, firstName, lastName} = user
+  const { email, password, firstName, lastName } = user;
   try {
     yield apply(firebase, firebase.createUser, [
       { email, password },
-      { firstName, lastName }
+      { firstName, lastName, displayName: firstName }
     ]);
 
     yield put(AuthActions.signUpSuccess());
@@ -34,7 +34,7 @@ export function* signIn(firebase, { credentials }) {
 export function* signOut(firebase) {
   try {
     const auth = yield apply(firebase, firebase.auth);
-    
+
     yield apply(auth, auth.signOut);
     yield put(AuthActions.signOutSuccess());
   } catch (err) {

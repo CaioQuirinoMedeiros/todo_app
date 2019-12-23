@@ -5,11 +5,10 @@ import VerifyEmailActions from "../../../store/modules/verifyEmail/reducer";
 
 import Button from "../../../utils/button";
 
-import { Container, Form, Title, SubTitle, Error } from "../styles";
+import { Container, Form, Title, SubTitle } from "../styles";
 
 function VerifyEmail() {
   const sending = useSelector(({ verifyEmail }) => verifyEmail.sending);
-  const error = useSelector(({ verifyEmail }) => verifyEmail.error);
 
   const dispatch = useDispatch();
 
@@ -27,7 +26,6 @@ function VerifyEmail() {
         <Button type="button" onClick={handleVerifyEmail}>
           {sending ? "Sending..." : "Re-send verification email"}
         </Button>
-        <Error>{error}</Error>
       </Form>
     </Container>
   );
