@@ -13,7 +13,7 @@ import reactReduxFirebaseConfig from "./config/react-redux-firebase";
 import store from "./store";
 
 import theme from "./utils/theme";
-import GlobalStyles from "./utils/global";
+import GlobalStyles from "./styles/global";
 
 const reactReduxFirebaseProps = {
   firebase,

@@ -1,19 +1,14 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React from 'react'
 
-import Layout from "./layout";
-import Routes from "./routes";
+import Layout from './layout'
+import Routes from './routes'
 
-function App() {
-  const auth = useSelector(({ firebase }) => firebase.auth);
-
-  console.log(auth);
-
+function App () {
   return (
     <Layout>
       <Routes />
     </Layout>
-  );
+  )
 }
 
-export default App;
+export default App

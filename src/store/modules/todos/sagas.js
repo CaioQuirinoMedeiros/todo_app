@@ -24,7 +24,7 @@ export function* getTodos() {
   }
 }
 
-export function* editTodo({}, { todo }) {
+export function* editTodo(firebase, { todo }) {
   try {
     console.log("EDITING TODO: ", todo);
 
@@ -35,7 +35,7 @@ export function* editTodo({}, { todo }) {
   }
 }
 
-export function* removeTodo({}, { id }) {
+export function* removeTodo(firebase, { id }) {
   try {
     console.log("REMOVING TODO: ", id);
 

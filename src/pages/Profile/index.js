@@ -3,13 +3,12 @@ import { useSelector, useDispatch } from "react-redux";
 import { Formik } from "formik";
 import * as Yup from "yup";
 
-import ProfileActions from "../../../store/modules/profile/reducer";
+import ProfileActions from "../../store/modules/profile/reducer";
 
-import Button from "../../../utils/button";
-import DeleteAccount from "../../../components/DeleteAccount";
-import EditPassword from "../../../components/EditPassword";
+import DeleteAccount from "../../components/DeleteAccount";
+import EditPassword from "../../components/EditPassword";
 
-import { Container, Form, Input, Title } from "../styles";
+import { Container, Form, Input, Title, Button } from "../../styles/components";
 
 const profileSchema = Yup.object().shape({
   firstName: Yup.string()

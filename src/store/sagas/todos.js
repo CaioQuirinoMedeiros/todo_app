@@ -38,7 +38,7 @@ export function* addTodo({ getFirestore }, { todo }) {
     yield put(TodosActions.addTodoSuccess());
     yield put(TodosActions.getTodosRequest());
   } catch (err) {
-    console.log(err);
+    console.error(err);
     yield put(
       TodosActions.addTodoFailure(err.message || "Oops, something went wrong")
     );
@@ -64,7 +64,7 @@ export function* getTodos({ getFirestore }) {
 
     yield put(TodosActions.getTodosSuccess(todos));
   } catch (err) {
-    console.log(err);
+    console.error(err);
     yield put(
       TodosActions.getTodosFailure(err.message || "Couldn't get your todos")
     );
@@ -90,7 +90,7 @@ export function* editTodo({ getFirestore }, { todo }) {
 
     yield put(TodosActions.editTodoSuccess());
   } catch (err) {
-    console.log(err);
+    console.error(err);
     yield put(
       TodosActions.editTodoFailure(err.message || "Erro updating todo")
     );
@@ -118,7 +118,7 @@ export function* removeTodo({ getFirestore }, { id }) {
 
     yield put(TodosActions.removeTodoSuccess());
   } catch (err) {
-    console.log(err);
+    console.error(err);
     yield put(
       TodosActions.removeTodoFailure(err.message || "Erro removing todo")
     );

@@ -5,13 +5,13 @@ import Guest from "./guest";
 import Signed from "./signed";
 import Verified from "./verified";
 
-import Todos from "../containers/Todos";
-import Login from "../containers/Auth/Login";
-import SignUp from "../containers/Auth/SignUp";
-import Logout from "../containers/Auth/Logout";
-import VerifyEmail from "../containers/Auth/VerifyEmail";
-import RecoveryPassword from "../containers/Auth/RecoveryPassword";
-import Profile from "../containers/Auth/Profile";
+import Todos from "../pages/Todos";
+import Login from "../pages/Login";
+import SignUp from "../pages/SignUp";
+import Logout from "../pages/Logout";
+import VerifyEmail from "../pages/VerifyEmail";
+import RecoveryPassword from "../pages/RecoveryPassword";
+import Profile from "../pages/Profile";
 
 function Routes() {
   return (

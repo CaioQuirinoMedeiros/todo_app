@@ -101,3 +101,34 @@ export const Link = styled(RouteLink)`
     opacity: 0.9;
   }
 `;
+
+export const Button = styled.button`
+  padding: 0 2rem;
+  height: 3.5rem;
+  margin-top: 1rem;
+  border-radius: 2rem;
+  margin-bottom: ${props => (props.marginBottom ? "2rem" : 0)};
+
+  background: ${props =>
+    props.red ? "var(--color-red)" : "var(--color-mainLighter)"};
+  opacity: 0.85;
+  color: var(--color-white);
+  font-size: 1.4rem;
+  letter-spacing: 1.1px;
+  box-shadow: 0rem 0.5rem 3.5rem var(--shadow);
+  transition: all 0.2s;
+
+  &:hover {
+    opacity: 1;
+    transform: translateY(-2px);
+  }
+
+  &:active {
+    transform: translateY(2px);
+  }
+
+  &:disabled {
+    background: #444;
+    cursor: not-allowed;
+  }
+`;

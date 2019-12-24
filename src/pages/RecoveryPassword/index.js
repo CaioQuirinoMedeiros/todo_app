@@ -3,11 +3,9 @@ import * as Yup from "yup";
 import { Formik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 
-import PasswordActions from "../../../store/modules/password/reducer";
+import PasswordActions from "../../store/modules/password/reducer";
 
-import Button from "../../../utils/button";
-
-import { Container, Form, Title, SubTitle, Input } from "../styles";
+import { Container, Form, Title, SubTitle, Input, Button } from "../../styles/components";
 
 const RecoveryPasswordSchema = Yup.object().shape({
   email: Yup.string()

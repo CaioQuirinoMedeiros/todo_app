@@ -1,11 +1,9 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-import VerifyEmailActions from "../../../store/modules/verifyEmail/reducer";
+import VerifyEmailActions from "../../store/modules/verifyEmail/reducer";
 
-import Button from "../../../utils/button";
-
-import { Container, Form, Title, SubTitle } from "../styles";
+import { Container, Form, Title, SubTitle, Button } from "../../styles/components";
 
 function VerifyEmail() {
   const sending = useSelector(({ verifyEmail }) => verifyEmail.sending);

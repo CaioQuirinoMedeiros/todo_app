@@ -1,9 +1,9 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 
-import AuthActions from "../../../store/modules/auth/reducer";
+import AuthActions from "../../store/modules/auth/reducer";
 
-import Confirmation from "../../../modals/Confirmation";
+import Confirmation from "../../modals/Confirmation";
 
 function Logout ({ history })  {
   const dispatch = useDispatch()

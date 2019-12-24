@@ -3,11 +3,9 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
 
-import AuthActions from "../../../store/modules/auth/reducer";
+import AuthActions from "../../store/modules/auth/reducer";
 
-import Button from "../../../utils/button";
-
-import { Container, Form, Input, Title, SubTitle } from "../styles";
+import { Container, Form, Input, Title, SubTitle, Button } from "../../styles/components";
 
 const signUpSchema = Yup.object().shape({
   firstName: Yup.string()
