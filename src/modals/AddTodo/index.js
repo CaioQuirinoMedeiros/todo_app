@@ -18,8 +18,9 @@ const todoSchema = Yup.object().shape({
 function AddTodo ({ visible, close, ...rest }) {
   const dispatch = useDispatch()
 
-  function handleAddTodo (data) {
-    dispatch(TodosActions.addTodoRequest(data))
+  function handleAddTodo ({ todo }) {
+    dispatch(TodosActions.addTodoRequest(todo))
+    close()
   }
 
   return (
