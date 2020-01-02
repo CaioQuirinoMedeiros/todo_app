@@ -26,11 +26,6 @@ export const NavList = styled.ul`
   align-items: center;
 `;
 
-export const NavItem = styled.li`
-  height: 100%;
-  display: flex;
-`;
-
 export const ItemLink = styled(NavLink)`
   display: flex;
   align-items: center;
@@ -46,7 +41,7 @@ export const ItemLink = styled(NavLink)`
   transition: all 0.2s;
 
   &:hover {
-    border-bottom: 3px solid var(--color-white);
+    border-bottom: 3px solid var(--color-whiteDark);
   }
 
   &.active {

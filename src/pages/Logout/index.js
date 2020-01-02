@@ -5,19 +5,21 @@ import AuthActions from "../../store/modules/auth/reducer";
 
 import Confirmation from "../../modals/Confirmation";
 
-function Logout ({ history })  {
-  const dispatch = useDispatch()
+function Logout({ history }) {
+  const dispatch = useDispatch();
 
   function handleSignOut() {
-    dispatch(AuthActions.signOutRequest())
+    dispatch(AuthActions.signOutRequest());
   }
 
   return (
-  <Confirmation
-    close={() =>  history.goBack() }
-    confirm={handleSignOut}
-    message="Logout from your account"
-  />
-)}
+    <Confirmation
+      visible
+      close={() => history.goBack()}
+      confirm={handleSignOut}
+      message="Logout from your account"
+    />
+  );
+}
 
-export default Logout
+export default Logout;

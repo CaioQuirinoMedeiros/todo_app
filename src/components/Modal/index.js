@@ -3,15 +3,21 @@ import PropTypes from "prop-types";
 
 import { Container } from "./styles";
 
-function Modal({ visible, close, children }) {
+function Modal({ visible, close, children, ...rest }) {
   function handleClickOutside(e) {
     if (e.target.id === "modal") {
       close();
     }
   }
 
+  React.useEffect(() => {
+    window.addEventListener("mousedown", handleClickOutside);
+
+    return () => window.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
   return visible ? (
-    <Container onClick={handleClickOutside} id="modal">
+    <Container id="modal" {...rest}>
       {children}
     </Container>
   ) : null;
@@ -19,12 +25,11 @@ function Modal({ visible, close, children }) {
 
 Modal.propTypes = {
   visible: PropTypes.bool,
-  children: PropTypes.element.isRequired,
+  children: PropTypes.node.isRequired,
   close: PropTypes.func
 };
 
 Modal.defaultProps = {
-  visible: true,
   close: () => {}
 };
 

@@ -45,15 +45,10 @@ export const NavList = styled.ul`
 
   border-top: 1px solid var(--color-white);
   opacity: ${({ open }) => (open ? 1 : 0)};
-  /* transform: translateY(${props => (props.isOpen ? "0%" : "-100%")}); */
   transform: ${({ open }) => `translateY(${open ? "0" : "-100"}%)`};
   z-index: 10;
   background-color: var(--color-main);
   transition: all 0.2s;
-`;
-
-export const NavItem = styled.li`
-  display: flex;
 `;
 
 export const ItemLink = styled(NavLink)`
@@ -70,7 +65,7 @@ export const ItemLink = styled(NavLink)`
   transition: all 0.2s;
 
   &:hover {
-    border-bottom: 2px solid var(--color-white);
+    border-bottom: 2px solid var(--color-whiteDark);
   }
 
   &.active {

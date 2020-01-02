@@ -4,7 +4,8 @@ import { faTrash } from "@fortawesome/free-solid-svg-icons";
 
 export const Card = styled.li`
   max-width: 80rem;
-  min-width: 50rem;
+  min-width: 35rem;
+  width: 90vw;
   padding: 2rem;
   margin: 1rem 0;
   display: flex;

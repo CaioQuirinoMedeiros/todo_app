@@ -16,7 +16,7 @@ function Todo({ todo }) {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const element = textRef.current
+    const element = textRef.current;
 
     element.addEventListener("blur", editTodo);
 
@@ -53,13 +53,12 @@ function Todo({ todo }) {
         <Icon />
       </DeleteButton>
 
-      {confirmationOpen && (
-        <Confirmation
-          confirm={removeTodo}
-          close={() => setConfirmationOpen(false)}
-          message="This action cannot be undone"
-        />
-      )}
+      <Confirmation
+        visible={confirmationOpen}
+        confirm={removeTodo}
+        close={() => setConfirmationOpen(false)}
+        message="This action cannot be undone"
+      />
     </Card>
   );
 }

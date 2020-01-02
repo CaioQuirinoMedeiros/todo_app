@@ -7,6 +7,7 @@ const theme = {
     textColor: "#333",
     red: "#de2121",
     white: "#fff",
+    whiteDark: '#d9d9d9',
     shadow: "rgba(0,0,0,0.5)"
   },
 

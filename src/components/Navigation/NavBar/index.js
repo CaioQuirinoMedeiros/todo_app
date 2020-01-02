@@ -1,12 +1,12 @@
 import React from "react";
-import { useSelector} from 'react-redux'
+import { useSelector } from "react-redux";
 
 import Logo from "../../Logo";
 
-import { Container, NavList, NavItem, ItemLink } from "./styles";
+import { Container, NavList, ItemLink } from "./styles";
 
 function NavBar() {
-  const signed = useSelector(({ firebase }) => !!firebase.auth.uid)
+  const signed = useSelector(({ firebase }) => !!firebase.auth.uid);
 
   return (
     <Container>
@@ -14,24 +14,24 @@ function NavBar() {
       <NavList>
         {signed ? (
           <>
-            <NavItem>
+            <li>
               <ItemLink to="/todos">Todos</ItemLink>
-            </NavItem>
-            <NavItem>
+            </li>
+            <li>
               <ItemLink to="/profile">Account</ItemLink>
-            </NavItem>
-            <NavItem>
+            </li>
+            <li>
               <ItemLink to="/logout">Logout</ItemLink>
-            </NavItem>
+            </li>
           </>
         ) : (
           <>
-            <NavItem>
+            <li>
               <ItemLink to="/login">Login</ItemLink>
-            </NavItem>
-            <NavItem>
+            </li>
+            <li>
               <ItemLink to="/signup">SignUp</ItemLink>
-            </NavItem>
+            </li>
           </>
         )}
       </NavList>

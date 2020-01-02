@@ -13,7 +13,7 @@ const deleteAccountSchema = Yup.object().shape({
   password: Yup.string().required("The password is required")
 });
 
-function DeleteAccount({ close }) {
+function DeleteAccount({close, ...rest}) {
   const loading = useSelector(({ deleteAccount }) => deleteAccount.loading);
 
   const dispatch = useDispatch();
@@ -23,7 +23,7 @@ function DeleteAccount({ close }) {
   }
 
   return (
-    <Modal close={close}>
+    <Modal close={close} {...rest}>
       <Formik
         validationSchema={deleteAccountSchema}
         onSubmit={handleDeleteAccount}

@@ -80,12 +80,14 @@ function Profile() {
           </Form>
         )}
       </Formik>
-      {deleteAccountOpen && (
-        <DeleteAccount close={() => setDeleteAccountOpen(false)} />
-      )}
-      {updatePasswordOpen && (
-        <UpdatePassword close={() => setUpdatePasswordOpen(false)} />
-      )}
+      <DeleteAccount
+        visible={deleteAccountOpen}
+        close={() => setDeleteAccountOpen(false)}
+      />
+      <UpdatePassword
+        visible={updatePasswordOpen}
+        close={() => setUpdatePasswordOpen(false)}
+      />
     </Container>
   );
 }

@@ -5,9 +5,9 @@ import { useSelector } from "react-redux";
 
 import Logo from "../../Logo";
 
-import { Container, NavBar, NavList, NavItem, ItemLink } from "./styles";
+import { Container, NavBar, NavList, ItemLink } from "./styles";
 
-function SideDrawer() {
+function NavDrawer() {
   const [open, setOpen] = useState(false);
   const signed = useSelector(({ firebase }) => !!firebase.auth.uid);
 
@@ -28,34 +28,34 @@ function SideDrawer() {
       <NavList open={open}>
         {signed ? (
           <>
-            <NavItem>
+            <li>
               <ItemLink to="/todos" onClick={closeDrawer}>
                 Todos
               </ItemLink>
-            </NavItem>
-            <NavItem>
+            </li>
+            <li>
               <ItemLink to="/profile" onClick={closeDrawer}>
                 Account
               </ItemLink>
-            </NavItem>
-            <NavItem>
+            </li>
+            <li>
               <ItemLink to="/logout" onClick={closeDrawer}>
                 Logout
               </ItemLink>
-            </NavItem>
+            </li>
           </>
         ) : (
           <>
-            <NavItem>
+            <li>
               <ItemLink to="/login" onClick={closeDrawer}>
                 Login
               </ItemLink>
-            </NavItem>
-            <NavItem>
+            </li>
+            <li>
               <ItemLink to="/signup" onClick={closeDrawer}>
                 SignUp
               </ItemLink>
-            </NavItem>
+            </li>
           </>
         )}
       </NavList>
@@ -63,4 +63,4 @@ function SideDrawer() {
   );
 }
 
-export default SideDrawer;
+export default NavDrawer;

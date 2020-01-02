@@ -1,15 +1,16 @@
 import React from "react";
 
-import { Container, LoaderComponent } from "./styles";
+import { Spinner } from "./styles";
 
-const Loader = () => (
-  <Container>
-    <LoaderComponent className="lds-ring">
+function Loader(props) {
+  return (
+    <Spinner className="lds-ring" {...props}>
       <div />
       <div />
       <div />
       <div />
-    </LoaderComponent>
-  </Container>
-);
+    </Spinner>
+  );
+}
+
 export default Loader;

@@ -5,7 +5,14 @@ import { useDispatch, useSelector } from "react-redux";
 
 import AuthActions from "../../store/modules/auth/reducer";
 
-import { Container, Form, Input, Title, SubTitle, Button } from "../../styles/components";
+import {
+  Container,
+  Form,
+  Input,
+  Title,
+  SubTitle,
+  Button
+} from "../../styles/components";
 
 const signUpSchema = Yup.object().shape({
   firstName: Yup.string()

@@ -19,7 +19,7 @@ const editPasswordSchema = Yup.object().shape({
     .required("You need to confirm your new password")
 });
 
-function UpdatePassword({close}) {
+function UpdatePassword({ close, ...rest }) {
   const updating = useSelector(({ password }) => password.updating);
 
   const dispatch = useDispatch();
@@ -29,7 +29,7 @@ function UpdatePassword({close}) {
   }
 
   return (
-    <Modal close={close}>
+    <Modal close={close} {...rest}>
       <Formik
         validationSchema={editPasswordSchema}
         onSubmit={handleUpdatePassword}

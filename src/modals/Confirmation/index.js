@@ -6,9 +6,9 @@ import Modal from "../../components/Modal";
 import { Container, Message } from "./styles";
 import Button from "../../utils/button";
 
-function Confirmation({ close, confirm, message }) {
+function Confirmation({ close, confirm, message, ...rest }) {
   return (
-    <Modal close={close}>
+    <Modal close={close} {...rest}>
       <Container>
         <Message>{message}</Message>
         <Button
@@ -21,7 +21,7 @@ function Confirmation({ close, confirm, message }) {
         >
           Confirm
         </Button>
-        <Button type="button" onClick={() => close()}>
+        <Button type="button" onClick={close}>
           Cancel
         </Button>
       </Container>

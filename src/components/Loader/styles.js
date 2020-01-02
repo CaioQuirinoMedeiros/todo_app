@@ -1,14 +1,6 @@
 import styled from "styled-components";
 
-export const Container = styled.div`
-  width: 100%;
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-
-export const LoaderComponent = styled.div`
+export const Spinner = styled.div`
   display: inline-block;
   position: relative;
   width: 64px;
