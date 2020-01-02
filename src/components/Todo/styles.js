@@ -1,52 +1,56 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import TextareaAutosize from 'react-textarea-autosize'
 
 export const Card = styled.li`
-  max-width: 80rem;
-  min-width: 35rem;
-  width: 90vw;
+  
   padding: 2rem;
   margin: 1rem 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
 
-  background: ${props =>
-    props.done ? "rgba(47, 130, 184, 0.4)" : "var(--color-mainLighter)"};
+  background: var(--color-white);
+  opacity: ${({ done }) => (done ? 0.85 : 1)};
   border-radius: 5px;
+  border-width: 1px;
+  border-style: solid;
+  border-color: ${({ done }) => (done ? "#dadada" : "#b2b2b2")};
   transition: all 0.2s;
 `;
 
-export const TodoText = styled.div`
+export const TodoText = styled(TextareaAutosize)`
   flex: 1;
-  min-height: 1.8rem;
   word-break: break-word;
   border-radius: 5px;
   padding: 1rem;
   margin: 0 1rem;
 
   outline: none;
-  font-size: 1.2rem;
-  border: 1px solid transparent;
-  border: 1px solid rgba(0, 0, 0, 0.075);
-  color: ${props =>
-    props.contentEditable ? "var(--color-white)" : "rgba(255,255,255,0.5)"};
-  cursor: ${props => (props.contentEditable ? "pointer" : "default")};
+  font-size: 1.4rem;
+  border-width: 1px;
+  border-style: solid;
+  border-color: ${({ disabled }) =>
+    disabled ?  "transparent" : "rgba(70, 70, 70, 0.1)"};
+  background: var(--color-mainLighter);
+  color: var(--color-white);
+  cursor: ${({ disabled }) => (disabled ? "not-allowed" : "pointer" )};
   transition: all 0.2s;
 
-  ${props =>
-    props.contentEditable
-      ? `&:hover {
-    background: rgba(0, 0, 0, 0.05);
-    border: 1px solid rgba(0, 0, 0, 0.1);
-  }`
-      : ""}
+  ${({ disabled }) =>
+    !disabled &&
+    css`
+      &:hover {
+        opacity: 0.9;
+        border: 1px solid rgba(70, 70, 70, 0.3);
+      }
+    `}
 
   &:focus {
     cursor: text;
-    background: rgba(0, 0, 0, 0.05);
-    border: 1px solid rgba(0, 0, 0, 0.1);
+    opacity: 0.9;
+    border: 1px solid rgba(70, 70, 70, 0.3);
   }
 `;
 
@@ -58,7 +62,7 @@ export const Icon = styled(FontAwesomeIcon).attrs({
   icon: faTrash,
   size: "lg"
 })`
-  color: var(--color-mainDark);
+  color: var(--color-red);
   opacity: 0.85;
   transition: all 0.2s;
 
@@ -68,16 +72,15 @@ export const Icon = styled(FontAwesomeIcon).attrs({
 `;
 
 export const CheckInput = styled.label`
-  display: block;
-  position: relative;
-  padding-left: 35px;
-  margin-bottom: 12px;
-  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-size: 22px;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+  cursor: pointer;
 
   input {
     position: absolute;
@@ -88,14 +91,14 @@ export const CheckInput = styled.label`
   }
 
   .checkmark {
-    position: absolute;
-    top: 0;
-    left: 0;
-    transform: translateY(-50%);
     height: 2rem;
     width: 2rem;
+    position: relative;
     border-radius: 1rem;
     background-color: #eee;
+    border-width: 1px;
+    border-style: solid;
+    border-color: ${({ done }) => (done ? "transparent" : "var(--color-main)" )};
 
     transition: all 0.2s;
   }
@@ -120,10 +123,10 @@ export const CheckInput = styled.label`
 
   & .checkmark::after {
     left: 0.65rem;
-    top: 0.2rem;
+    top: 0;
     width: 0.5rem;
     height: 1.2rem;
-    border: solid var(--color-mainDark);
+    border: solid var(--color-main);
     border-width: 0 3px 3px 0;
     -webkit-transform: rotate(45deg);
     -ms-transform: rotate(45deg);

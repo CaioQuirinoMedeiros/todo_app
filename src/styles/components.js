@@ -108,13 +108,13 @@ export const Button = styled.button`
   margin-top: 1rem;
   border-radius: 2rem;
   margin-bottom: ${props => (props.marginBottom ? "2rem" : 0)};
-
+  font-weight: bold;
   background: ${props =>
     props.red ? "var(--color-red)" : "var(--color-mainLighter)"};
   opacity: 0.85;
   color: var(--color-white);
   font-size: 1.4rem;
-  letter-spacing: 1.1px;
+  letter-spacing: 1px;
   box-shadow: 0rem 0.5rem 3.5rem var(--shadow);
   transition: all 0.2s;
 

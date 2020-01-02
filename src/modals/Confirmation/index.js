@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import Modal from "../../components/Modal";
 
 import { Container, Message } from "./styles";
-import Button from "../../utils/button";
+import { Button } from "../../styles/components";
 
 function Confirmation({ close, confirm, message, ...rest }) {
   return (

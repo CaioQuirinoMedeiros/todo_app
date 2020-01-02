@@ -3,7 +3,7 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 import { useDispatch } from "react-redux";
 
-import TodosActions from "../../store/ducks/todos";
+import TodosActions from "../../store/modules/todos/reducer";
 
 import Modal from "../../components/Modal";
 

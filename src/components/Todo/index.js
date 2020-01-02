@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 
 import Confirmation from "../../modals/Confirmation";
 
-import TodosActions from "../../store/ducks/todos";
+import TodosActions from "../../store/modules/todos/reducer";
 
 import { Card, CheckInput, TodoText, DeleteButton, Icon } from "./styles";
 
@@ -24,8 +24,7 @@ function Todo({ todo }) {
   }, []);
 
   function editTodo(e) {
-    const value = e.target.textContent;
-    dispatch(TodosActions.editTodoRequest({ ...todo, todo: value }));
+    dispatch(TodosActions.editTodoRequest({ ...todo, todo: e.target.value }));
   }
 
   function toggleTodoDone() {
@@ -37,29 +36,32 @@ function Todo({ todo }) {
   }
 
   return (
-    <Card done={todo.done}>
-      <CheckInput>
-        <input type="checkbox" checked={todo.done} onChange={toggleTodoDone} />
-        <span className="checkmark" />
-      </CheckInput>
-      <TodoText
-        suppressContentEditableWarning
-        contentEditable={!todo.done}
-        ref={textRef}
-      >
-        {todo.todo}
-      </TodoText>
-      <DeleteButton type="button" onClick={() => setConfirmationOpen(true)}>
-        <Icon />
-      </DeleteButton>
-
+    <>
+      <Card done={todo.done}>
+        <CheckInput done={todo.done}>
+          <input
+            type="checkbox"
+            checked={todo.done}
+            onChange={toggleTodoDone}
+          />
+          <span className="checkmark" />
+        </CheckInput>
+        <TodoText
+          disabled={todo.done}
+          defaultValue={todo.todo}
+          inputRef={textRef}
+        />
+        <DeleteButton type="button" onClick={() => setConfirmationOpen(true)}>
+          <Icon />
+        </DeleteButton>
+      </Card>
       <Confirmation
         visible={confirmationOpen}
         confirm={removeTodo}
         close={() => setConfirmationOpen(false)}
         message="This action cannot be undone"
       />
-    </Card>
+    </>
   );
 }
 

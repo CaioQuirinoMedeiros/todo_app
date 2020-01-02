@@ -17,10 +17,14 @@ export default createGlobalStyle`
     --color-mainDark: ${props => props.theme.colors.mainDark};
     --color-mainLight: ${props => props.theme.colors.mainLight};
     --color-mainLighter: ${props => props.theme.colors.mainLighter};
+    --color-primary: ${props => props.theme.colors.primary};
+    --color-secundary: ${props => props.theme.colors.secundary};
+    --color-ink: ${props => props.theme.colors.ink};
     --color-red: ${props => props.theme.colors.red};
     --color-text: ${props => props.theme.colors.text};
     --color-white: ${props => props.theme.colors.white};
     --color-whiteDark: ${props => props.theme.colors.whiteDark};
+    --color-shadow: ${props => props.theme.colors.shadow};
 
     @media ${props => props.theme.mediaQueries.small} {
       font-size: 55%;
@@ -31,6 +35,7 @@ export default createGlobalStyle`
   }
 
   body {
+    color: var(--color-ink);
     font-family: 'Roboto', Arial, sans-serif;
     font-weight: 400;
     line-height: 1.6;
@@ -49,6 +54,12 @@ export default createGlobalStyle`
     outline: none;
     font-family: inherit;
     border: none;
+  }
+
+  textarea {
+    font-family: inherit;
+    color: inherit;
+    resize: vertical;
   }
 
   a {

@@ -39,7 +39,8 @@ export function* addTodo({ todo }) {
   const newTodo = {
     todo,
     done: false,
-    id: `${new Date().valueOf()}.${Math.ceil(Math.random() * 100000)}`
+    id: `${new Date().valueOf()}.${Math.ceil(Math.random() * 100000)}`,
+    date: new Date()
   };
 
   try {
@@ -74,7 +75,7 @@ export function* addTodo({ todo }) {
 
 export function* getTodos() {
   try {
-    const {todos} = yield call(getUserTodos)
+    const { todos } = yield call(getUserTodos);
 
     yield put(TodosActions.getTodosSuccess(todos));
   } catch (err) {

@@ -8,13 +8,37 @@ import Todo from "../../components/Todo";
 
 import TodosActions from "../../store/modules/todos/reducer";
 
-import { Button } from "../../styles/components";
-import { Container, Title, SubTitle, TodosContainer} from "./styles";
+import {
+  Container,
+  Title,
+  SubTitle,
+  TodosContainer,
+  Content,
+  AddIcon,
+  Button
+} from "./styles";
 
 function Todos() {
   const [modalOpen, setModalOpen] = useState(false);
 
-  const todos = useSelector(({ todos }) => todos.data);
+  const todos = useSelector(({ todos }) =>
+    [...todos.data]
+      .filter(todo => !todo.done)
+      .sort((a, b) => {
+        const diff = new Date(b.date.seconds) - new Date(a.date.seconds);
+        return diff;
+      })
+  );
+
+  const done = useSelector(({ todos }) =>
+    [...todos.data]
+      .filter(todo => todo.done)
+      .sort((a, b) => {
+        const diff = new Date(b.date.seconds) - new Date(a.date.seconds);
+        return diff;
+      })
+  );
+
   const userId = useSelector(({ firebase }) => firebase.auth.uid);
 
   const dispatch = useDispatch();
@@ -36,15 +60,23 @@ function Todos() {
       <Title>Your todos</Title>
       <SubTitle>All tou have to do for now...</SubTitle>
 
-      <Button type="button" onClick={() => setModalOpen(true)}>
-        Add Todo
-      </Button>
+      <Content>
+        <Button type="button" onClick={() => setModalOpen(true)}>
+          <AddIcon />
+          Add Todo
+        </Button>
 
-      <TodosContainer>
-        {todos.map(todo => (
-          <Todo key={todo.id} todo={todo} />
-        ))}
-      </TodosContainer>
+        <TodosContainer>
+          {todos.map(todo => (
+            <Todo key={todo.id} todo={todo} />
+          ))}
+        </TodosContainer>
+        <TodosContainer>
+          {done.map(todo => (
+            <Todo key={todo.id} todo={todo} />
+          ))}
+        </TodosContainer>
+      </Content>
 
       <AddTodo visible={modalOpen} close={() => setModalOpen(false)} />
     </Container>

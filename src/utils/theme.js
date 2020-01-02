@@ -4,10 +4,13 @@ const theme = {
     mainDark: "#21283e",
     mainLight: "#2c3247",
     mainLighter: "#2f82b8",
+    primary: "#356f96",
+    secundary: "#efeffe",
+    ink: '#333',
     textColor: "#333",
-    red: "#de2121",
+    red: "#ed2d2d",
     white: "#fff",
-    whiteDark: '#d9d9d9',
+    whiteDark: "#d9d9d9",
     shadow: "rgba(0,0,0,0.5)"
   },
 
