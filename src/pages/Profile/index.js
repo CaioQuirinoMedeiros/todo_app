@@ -1,12 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Formik } from "formik";
 import * as Yup from "yup";
 
 import ProfileActions from "../../store/modules/profile/reducer";
 
-import DeleteAccount from "../../components/DeleteAccount";
-import EditPassword from "../../components/EditPassword";
+import DeleteAccount from "../../modals/DeleteAccount";
+import UpdatePassword from "../../modals/UpdatePassword";
 
 import { Container, Form, Input, Title, Button } from "../../styles/components";
 
@@ -15,13 +15,17 @@ const profileSchema = Yup.object().shape({
     .required("Your name is required")
     .min(3, "Too short")
     .max(25, "Too long"),
-    lastName: Yup.string()
+  lastName: Yup.string()
     .required("Your name is required")
     .min(3, "Too short")
-    .max(25, "Too long"),
+    .max(25, "Too long")
 });
 
 function Profile() {
+  const [deleteAccountOpen, setDeleteAccountOpen] = useState(false);
+  const [updatePasswordOpen, setUpdatePasswordOpen] = useState(false);
+
+  const updating = useSelector(({ profile }) => profile.updating);
   const profile = useSelector(({ firebase }) => firebase.profile);
 
   const dispatch = useDispatch();
@@ -58,22 +62,30 @@ function Profile() {
               error={errors.lastName}
             />
 
-            <Button disabled={!isValid} type="submit">
-              Update
+            <Button disabled={!isValid || updating} type="submit">
+              {updating ? "Updating..." : "Update"}
             </Button>
 
-            <Button type="button" onClick={() => alert("opa")}>
+            <Button type="button" onClick={() => setUpdatePasswordOpen(true)}>
               Edit password
             </Button>
 
-            <Button type="button" red onClick={() => alert("opa")}>
+            <Button
+              type="button"
+              red
+              onClick={() => setDeleteAccountOpen(true)}
+            >
               Delete my account
             </Button>
           </Form>
         )}
       </Formik>
-      {false && <DeleteAccount />}
-      {false && <EditPassword />}
+      {deleteAccountOpen && (
+        <DeleteAccount close={() => setDeleteAccountOpen(false)} />
+      )}
+      {updatePasswordOpen && (
+        <UpdatePassword close={() => setUpdatePasswordOpen(false)} />
+      )}
     </Container>
   );
 }

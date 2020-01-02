@@ -1,7 +1,39 @@
-import { put, select } from "redux-saga/effects";
+import { put, select, apply, call } from "redux-saga/effects";
 
 import TodosActions from "./reducer";
 import { firestore } from "../../../services/firebase";
+
+export function* getTodosCollection() {
+  const collection = yield call([firestore, "collection"], "todos");
+
+  return collection;
+}
+
+export function* getTodosDoc() {
+  const collection = yield call(getTodosCollection);
+
+  const userId = yield select(state => state.firebase.auth.uid);
+
+  const document = yield call([collection, "doc"], userId);
+
+  return document;
+}
+
+export function* getUserTodos() {
+  const document = yield call(getTodosDoc);
+
+  const content = yield call([document, "get"]);
+
+  const data = yield call([content, "data"]);
+
+  return data;
+}
+
+export function* updateUserTodos(todos) {
+  const document = yield call(getTodosDoc);
+
+  yield call([document, "update"], { todos });
+}
 
 export function* addTodo({ todo }) {
   const newTodo = {
@@ -36,75 +68,44 @@ export function* addTodo({ todo }) {
 
     yield put(TodosActions.addTodoSuccess());
   } catch (err) {
-    console.error("ERROR ADDING TODO:", err);
     yield put(TodosActions.addTodoFailure(err.message));
   }
 }
 
 export function* getTodos() {
   try {
-    const userId = yield select(state => state.firebase.auth.uid);
-
-    const document = yield firestore
-      .collection("todos")
-      .doc(userId)
-      .get();
-
-    let todos = [];
-
-    if (document.exists) {
-      todos = document.data().todos;
-    }
+    const {todos} = yield call(getUserTodos)
 
     yield put(TodosActions.getTodosSuccess(todos));
   } catch (err) {
-    console.error(err);
     yield put(TodosActions.getTodosFailure(err.message));
   }
 }
 
 export function* editTodo({ todo }) {
   try {
-    const userId = yield select(state => state.firebase.auth.uid);
+    const { todos } = yield call(getUserTodos);
 
-    const document = yield firestore
-      .collection("todos")
-      .doc(userId)
-      .get();
+    const newTodos = todos.map(td => (td.id === todo.id ? todo : td));
 
-    const todos = document.data().todos;
-
-    yield firestore
-      .collection("todos")
-      .doc(userId)
-      .update({ todos: todos.map(td => (td.id === todo.id ? todo : td)) });
+    yield call(updateUserTodos, newTodos);
 
     yield put(TodosActions.editTodoSuccess());
   } catch (err) {
-    console.error(err);
     yield put(TodosActions.editTodoFailure(err.message));
   }
 }
 
 export function* removeTodo({ id }) {
   try {
-    const userId = yield select(state => state.firebase.auth.uid);
+    const { todos } = yield call(getUserTodos);
 
-    const document = yield firestore
-      .collection("todos")
-      .doc(userId)
-      .get();
+    const newTodos = todos.filter(td => td.id !== id);
 
-    const todos = document.data().todos;
-
-    yield firestore
-      .collection("todos")
-      .doc(userId)
-      .update({ todos: todos.filter(td => td.id !== id) });
+    yield call(updateUserTodos, newTodos);
 
     yield put(TodosActions.removeTodoSuccess());
   } catch (err) {
-    console.error(err);
     yield put(TodosActions.removeTodoFailure(err.message));
   }
 }
