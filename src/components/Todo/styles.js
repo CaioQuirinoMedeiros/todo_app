@@ -2,11 +2,11 @@ import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 
-export const TodoCard = styled.div`
-  width: 100%;
+export const Card = styled.li`
   max-width: 80rem;
+  min-width: 50rem;
   padding: 2rem;
-  margin: 0.5rem 0;
+  margin: 1rem 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -28,6 +28,7 @@ export const TodoText = styled.div`
   outline: none;
   font-size: 1.2rem;
   border: 1px solid transparent;
+  border: 1px solid rgba(0, 0, 0, 0.075);
   color: ${props =>
     props.contentEditable ? "var(--color-white)" : "rgba(255,255,255,0.5)"};
   cursor: ${props => (props.contentEditable ? "pointer" : "default")};
@@ -89,7 +90,7 @@ export const CheckInput = styled.label`
     position: absolute;
     top: 0;
     left: 0;
-    transform: translateY(-25%);
+    transform: translateY(-50%);
     height: 2rem;
     width: 2rem;
     border-radius: 1rem;

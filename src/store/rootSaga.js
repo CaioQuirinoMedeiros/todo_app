@@ -25,9 +25,9 @@ export default function* rootSaga(firebase) {
     
     takeLatest(ProfileTypes.UPDATE_PROFILE_REQUEST, updateProfile, firebase),
 
-    takeLatest(TodosTypes.ADD_TODO_REQUEST, addTodo, firebase),
-    takeLatest(TodosTypes.GET_TODOS_REQUEST, getTodos, firebase),
-    takeLatest(TodosTypes.EDIT_TODO_REQUEST, editTodo, firebase),
-    takeLatest(TodosTypes.REMOVE_TODO_REQUEST, removeTodo, firebase)
+    takeLatest(TodosTypes.ADD_TODO_REQUEST, addTodo),
+    takeLatest(TodosTypes.GET_TODOS_REQUEST, getTodos),
+    takeLatest(TodosTypes.EDIT_TODO_REQUEST, editTodo),
+    takeLatest(TodosTypes.REMOVE_TODO_REQUEST, removeTodo)
   ]);
 }

@@ -1,106 +1,75 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
+import React, { useEffect, useState, useRef } from "react";
+import { useDispatch } from "react-redux";
 import PropTypes from "prop-types";
 
 import Confirmation from "../../modals/Confirmation";
 
 import TodosActions from "../../store/ducks/todos";
 
-import { TodoCard, CheckInput, TodoText, DeleteButton, Icon } from "./styles";
+import { Card, CheckInput, TodoText, DeleteButton, Icon } from "./styles";
 
-class Todo extends Component {
-  static propTypes = {
-    todo: PropTypes.shape({
-      todo: PropTypes.string,
-      id: PropTypes.string,
-      done: PropTypes.bool
-    }).isRequired,
-    editTodoRequest: PropTypes.func.isRequired,
-    removeTodoRequest: PropTypes.func.isRequired
-  };
+function Todo({ todo }) {
+  const [confirmationOpen, setConfirmationOpen] = useState(false);
 
-  state = {
-    deleteConfirmation: false
-  };
+  const textRef = useRef();
 
-  componentDidMount() {
-    const { todo } = this.props;
+  const dispatch = useDispatch();
 
-    const textInput = document.getElementById(`text-${todo.id}`);
+  useEffect(() => {
+    const element = textRef.current
 
-    textInput.addEventListener("blur", this.editTodo);
+    element.addEventListener("blur", editTodo);
+
+    return () => element.removeEventListener("blur", editTodo);
+  }, []);
+
+  function editTodo(e) {
+    const value = e.target.textContent;
+    dispatch(TodosActions.editTodoRequest({ ...todo, todo: value }));
   }
 
-  componentWillUnmount() {
-    const { todo } = this.props;
-    const textInput = document.getElementById(`text-${todo.id}`);
-
-    textInput.removeEventListener("blur", this.editTodo);
+  function toggleTodoDone() {
+    dispatch(TodosActions.editTodoRequest({ ...todo, done: !todo.done }));
   }
 
-  editTodo = e => {
-    const { editTodoRequest, todo } = this.props;
-
-    editTodoRequest({ ...todo, todo: e.target.textContent });
-  };
-
-  toggleTodoDone = e => {
-    const { editTodoRequest, todo } = this.props;
-
-    editTodoRequest({ ...todo, done: e.target.checked });
-  };
-
-  removeTodo = () => {
-    const { removeTodoRequest, todo } = this.props;
-
-    removeTodoRequest(todo.id);
-  };
-
-  render() {
-    const { todo } = this.props;
-    const { deleteConfirmation } = this.state;
-
-    return (
-      <TodoCard done={todo.done}>
-        <CheckInput>
-          <input
-            type="checkbox"
-            checked={todo.done}
-            onChange={this.toggleTodoDone}
-          />
-          <span className="checkmark" />
-        </CheckInput>
-        <TodoText
-          suppressContentEditableWarning
-          contentEditable={!todo.done}
-          id={`text-${todo.id}`}
-        >
-          {todo.todo}
-        </TodoText>
-        <DeleteButton
-          type="button"
-          onClick={() => this.setState({ deleteConfirmation: true })}
-        >
-          <Icon />
-        </DeleteButton>
-
-        {deleteConfirmation && (
-          <Confirmation
-            confirm={this.removeTodo}
-            close={() => this.setState({ deleteConfirmation: false })}
-            message="This action cannot be undone"
-          />
-        )}
-      </TodoCard>
-    );
+  function removeTodo() {
+    dispatch(TodosActions.removeTodoRequest(todo.id));
   }
+
+  return (
+    <Card done={todo.done}>
+      <CheckInput>
+        <input type="checkbox" checked={todo.done} onChange={toggleTodoDone} />
+        <span className="checkmark" />
+      </CheckInput>
+      <TodoText
+        suppressContentEditableWarning
+        contentEditable={!todo.done}
+        ref={textRef}
+      >
+        {todo.todo}
+      </TodoText>
+      <DeleteButton type="button" onClick={() => setConfirmationOpen(true)}>
+        <Icon />
+      </DeleteButton>
+
+      {confirmationOpen && (
+        <Confirmation
+          confirm={removeTodo}
+          close={() => setConfirmationOpen(false)}
+          message="This action cannot be undone"
+        />
+      )}
+    </Card>
+  );
 }
 
-const mapDispatchToProps = dispatch =>
-  bindActionCreators(TodosActions, dispatch);
+Todo.propTypes = {
+  todo: PropTypes.shape({
+    todo: PropTypes.string,
+    id: PropTypes.string,
+    done: PropTypes.bool
+  }).isRequired
+};
 
-export default connect(
-  null,
-  mapDispatchToProps
-)(Todo);
+export default Todo;

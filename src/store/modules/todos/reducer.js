@@ -32,7 +32,8 @@ export const INITIAL_STATE = Immutable({
   fetchingError: null,
   addingError: null,
   editingError: null,
-  removingError: null
+  removingError: null,
+  subscription: null
 });
 
 /* Reducers */

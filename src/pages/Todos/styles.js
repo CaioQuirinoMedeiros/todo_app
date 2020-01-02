@@ -1,8 +1,7 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-  width: 100%;
-  align-self: stretch;
+  flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -27,3 +26,9 @@ export const SubTitle = styled.p`
   font-size: 1.4rem;
   text-align: center;
 `;
+
+export const TodosContainer = styled.ul`
+  display: flex;
+  flex-direction: column;
+  margin-top: 2rem;
+`

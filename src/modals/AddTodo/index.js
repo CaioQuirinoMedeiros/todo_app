@@ -24,7 +24,7 @@ function AddTodo ({ visible, close, ...rest }) {
   }
 
   return (
-    <Modal close={close} visible={visible}>
+    <Modal close={close} visible={visible} {...rest}>
       <Formik validationSchema={todoSchema} onSubmit={handleAddTodo}>
         {({ isValid, errors }) => (
           <Form>
