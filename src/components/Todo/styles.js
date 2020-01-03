@@ -1,22 +1,23 @@
 import styled, { css } from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
-import TextareaAutosize from 'react-textarea-autosize'
+import TextareaAutosize from "react-textarea-autosize";
+
+import ConfirmationComponent from "../../modals/Confirmation";
+
+export const Confirmation = styled(ConfirmationComponent)`
+  position: relative;
+  width: 20rem;
+  height: 10rem;
+`;
 
 export const Card = styled.li`
-  
-  padding: 2rem;
   margin: 1rem 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
 
-  background: var(--color-white);
   opacity: ${({ done }) => (done ? 0.85 : 1)};
-  border-radius: 5px;
-  border-width: 1px;
-  border-style: solid;
-  border-color: ${({ done }) => (done ? "#dadada" : "#b2b2b2")};
   transition: all 0.2s;
 `;
 
@@ -26,16 +27,17 @@ export const TodoText = styled(TextareaAutosize)`
   border-radius: 5px;
   padding: 1rem;
   margin: 0 1rem;
+  min-height: 38px;
 
   outline: none;
   font-size: 1.4rem;
   border-width: 1px;
   border-style: solid;
   border-color: ${({ disabled }) =>
-    disabled ?  "transparent" : "rgba(70, 70, 70, 0.1)"};
-  background: var(--color-mainLighter);
+    disabled ? "transparent" : "rgba(70, 70, 70, 0.1)"};
+  background: var(--color-main);
   color: var(--color-white);
-  cursor: ${({ disabled }) => (disabled ? "not-allowed" : "pointer" )};
+  cursor: ${({ disabled }) => (disabled ? "not-allowed" : "pointer")};
   transition: all 0.2s;
 
   ${({ disabled }) =>
@@ -98,7 +100,7 @@ export const CheckInput = styled.label`
     background-color: #eee;
     border-width: 1px;
     border-style: solid;
-    border-color: ${({ done }) => (done ? "transparent" : "var(--color-main)" )};
+    border-color: ${({ done }) => (done ? "transparent" : "var(--color-main)")};
 
     transition: all 0.2s;
   }

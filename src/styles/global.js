@@ -19,6 +19,7 @@ export default createGlobalStyle`
     --color-mainLighter: ${props => props.theme.colors.mainLighter};
     --color-primary: ${props => props.theme.colors.primary};
     --color-secundary: ${props => props.theme.colors.secundary};
+    --color-action: ${props => props.theme.colors.action};
     --color-ink: ${props => props.theme.colors.ink};
     --color-red: ${props => props.theme.colors.red};
     --color-text: ${props => props.theme.colors.text};
@@ -64,5 +65,58 @@ export default createGlobalStyle`
 
   a {
     text-decoration: none;
+  }
+
+  @-webkit-keyframes vibrate-1 {
+    0% {
+      -webkit-transform: translate(0);
+      transform: translate(0);
+    }
+    20% {
+      -webkit-transform: translate(-2px, 2px);
+      transform: translate(-2px, 2px);
+    }
+    40% {
+      -webkit-transform: translate(-2px, -2px);
+      transform: translate(-2px, -2px);
+    }
+    60% {
+      -webkit-transform: translate(2px, 2px);
+      transform: translate(2px, 2px);
+    }
+    80% {
+      -webkit-transform: translate(2px, -2px);
+      transform: translate(2px, -2px);
+    }
+    100% {
+      -webkit-transform: translate(0);
+      transform: translate(0);
+    }
+  }
+  @keyframes vibrate-1 {
+    0% {
+      -webkit-transform: translate(0);
+      transform: translate(0);
+    }
+    20% {
+      -webkit-transform: translate(-2px, 2px);
+      transform: translate(-2px, 2px);
+    }
+    40% {
+      -webkit-transform: translate(-2px, -2px);
+      transform: translate(-2px, -2px);
+    }
+    60% {
+      -webkit-transform: translate(2px, 2px);
+      transform: translate(2px, 2px);
+    }
+    80% {
+      -webkit-transform: translate(2px, -2px);
+      transform: translate(2px, -2px);
+    }
+    100% {
+      -webkit-transform: translate(0);
+      transform: translate(0);
+    }
   }
 `;

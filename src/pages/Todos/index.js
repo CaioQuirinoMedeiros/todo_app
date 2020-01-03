@@ -10,10 +10,7 @@ import TodosActions from "../../store/modules/todos/reducer";
 
 import {
   Container,
-  Title,
-  SubTitle,
   TodosContainer,
-  Content,
   AddIcon,
   Button
 } from "./styles";
@@ -57,10 +54,6 @@ function Todos() {
 
   return (
     <Container>
-      <Title>Your todos</Title>
-      <SubTitle>All tou have to do for now...</SubTitle>
-
-      <Content>
         <Button type="button" onClick={() => setModalOpen(true)}>
           <AddIcon />
           Add Todo
@@ -76,7 +69,6 @@ function Todos() {
             <Todo key={todo.id} todo={todo} />
           ))}
         </TodosContainer>
-      </Content>
 
       <AddTodo visible={modalOpen} close={() => setModalOpen(false)} />
     </Container>

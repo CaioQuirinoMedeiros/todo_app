@@ -2,11 +2,19 @@ import React, { useEffect, useState, useRef } from "react";
 import { useDispatch } from "react-redux";
 import PropTypes from "prop-types";
 
-import Confirmation from "../../modals/Confirmation";
+// import Confirmation from "../../modals/Confirmation";
+import Popup from "../PopUp";
 
 import TodosActions from "../../store/modules/todos/reducer";
 
-import { Card, CheckInput, TodoText, DeleteButton, Icon } from "./styles";
+import {
+  Card,
+  CheckInput,
+  TodoText,
+  DeleteButton,
+  Icon,
+  Confirmation
+} from "./styles";
 
 function Todo({ todo }) {
   const [confirmationOpen, setConfirmationOpen] = useState(false);
@@ -51,9 +59,12 @@ function Todo({ todo }) {
           defaultValue={todo.todo}
           inputRef={textRef}
         />
-        <DeleteButton type="button" onClick={() => setConfirmationOpen(true)}>
+        <Popup onClick={() => alert("FOI!")}>
           <Icon />
-        </DeleteButton>
+        </Popup>
+        {/* <DeleteButton type="button" onClick={() => setConfirmationOpen(true)}>
+          <Icon />
+        </DeleteButton> */}
       </Card>
       <Confirmation
         visible={confirmationOpen}

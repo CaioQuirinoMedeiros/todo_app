@@ -8,7 +8,7 @@ export const Container = styled.div`
   flex-direction: column;
 
   border-radius: 5px;
-  background: var(--color-main);
+  background: var(--color-white);
 `;
 
 export const Message = styled.p`
